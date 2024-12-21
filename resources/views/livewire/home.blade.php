@@ -1,4 +1,4 @@
-{{-- @dd($galleries, $heros) --}}
+{{-- @dd($testimonials) --}}
 <div class="w-full flex flex-col gap-9 lg:gap-12 px-4 pt-20 pb-9 lg:px-16 2xl:px-36 lg:pt-[120px] lg:pb-12 bg-slate-100">
     <!-- hero -->
     <figure class="relative flex w-full">
@@ -61,10 +61,7 @@
       </div>
       <div class="grid grid-cols-12 w-full lg:w-3/5 gap-2 lg:gap-4">
         @foreach($majors as $major)
-        <a wire:key="{{ $major->id }}" href="" class="flex flex-col {{ $loop->first ? 'col-span-7' : ($loop->last ? 'col-span-7' : 'col-span-5') }} gap-2 px-2 py-4 lg:px-4 lg:py-6 bg-blue-700 rounded-2xl items-center">
-          <img src="/storage/{{ $major->logo }}" class="w-24 lg:w-36" alt="">
-          <h3 class="text-slate-50 font-medium text-sm lg:text-2xl h-[2lh] lg:h-[2lh] text-center">{{ $major->name }}</h3>
-        </a>
+          <livewire:components.card-major-home wire:key="{{ $major->id }}" :alias="$major->alias" :colSpan="$loop->first ? 'col-span-7' : ($loop->last ? 'col-span-7' : 'col-span-5')" :logo="$major->logo" :name="$major->name" />
         @endforeach
       </div>
      </aside>
@@ -73,8 +70,11 @@
     <!-- achievement -->
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-right text="Prestasi" span="Kita" />
-      <div class="flex w-full flex-col lg:flex-row gap-4">
-        <a href="" class="w-full lg:w-1/4 group">
+      <div class="grid lg:grid-cols-4 gap-4">
+        @foreach($achievements as $achievement)
+          <livewire:components.card-achievement wire:key="{{ $achievement->id }}" :slug="$achievement->slug" :photo="$achievement->photo" :rankings="$achievement->rankings" :title="$achievement->title" :createdAt="$achievement->created_at" /> 
+        @endforeach
+        {{-- <a href="" class="w-full group">
           <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
               <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
               <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
@@ -89,7 +89,7 @@
               </figcaption>
           </article>
         </a>
-        <a href="" class="w-full lg:w-1/4 group">
+        <a href="" class="w-full group">
           <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
               <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
               <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
@@ -104,7 +104,7 @@
               </figcaption>
           </article>
         </a>
-        <a href="" class="w-full lg:w-1/4 group">
+        <a href="" class="w-full group">
           <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
               <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
               <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
@@ -119,7 +119,7 @@
               </figcaption>
           </article>
         </a>
-        <a href="" class="w-full lg:w-1/4 group">
+        <a href="" class="w-full group">
           <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
               <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
               <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
@@ -133,7 +133,7 @@
                   </div>
               </figcaption>
           </article>
-        </a>
+        </a> --}}
       </div>
       <footer>
         <livewire:components.more-button text="Prestasi Lainya" href="/achievement" />
@@ -157,7 +157,10 @@
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-right text="Cerita" span="Alumni" />
       <div class="drag-to-scroll flex gap-4 w-full cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll pt-10 lg:pt-14 p-2">
-        <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
+        @foreach($testimonials as $testimonial)
+        <livewire:components.card-testimonial wire:key="{{ $testimonial->id }}" :photo="$testimonial->alumnis->photo" :name="$testimonial->alumnis->name" :class="$testimonial->alumnis->class" :position="$testimonial->alumnis->position" :company="$testimonial->alumnis->company" :content="$testimonial->content" :rating="$testimonial->rating" />
+        @endforeach
+        {{-- <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
           <figure style="background-image: url(/img/pp/7.png);" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
           <figcaption class="flex flex-col w-full text-center">
             <div class="flex w-full gap-1 items-center justify-center">
@@ -264,7 +267,7 @@
             <span class="icon-[mdi--star] lg:text-xl"></span>
             <span class="icon-[mdi--star-outline] lg:text-xl"></span>
           </div>
-        </article>
+        </article> --}}
       </div>
       <footer>
         <livewire:components.more-button text="Cerita Lainya" href="/alumni" />

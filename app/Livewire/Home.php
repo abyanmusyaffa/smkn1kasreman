@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Models\Achievement;
 use App\Models\Major;
 use App\Models\Partner;
 use App\Models\Photo;
 use App\Models\School;
+use App\Models\Testimonial;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -22,12 +24,14 @@ class Home extends Component
     public function render()
     {
         return view('livewire.home', [
-            'majors' => Major::select('id', 'name', 'logo')->get(),
+            'majors' => Major::select('id', 'name', 'alias', 'logo')->get(),
             'school' => School::first(),
             'video_id' => $this->getYoutubeVideoId(School::first()->url_video_profile),
             'heros' => Photo::where('type', 'hero')->value('photo'),
             'galleries' => Photo::where('type', 'gallery')->value('photo'),
             'partners' => Partner::select('logo')->get(),
+            'achievements' => Achievement::orderBy('created_at', 'desc')->take(4)->get(),
+            'testimonials' => Testimonial::with('alumnis')->get(),
         ]);
     }
 

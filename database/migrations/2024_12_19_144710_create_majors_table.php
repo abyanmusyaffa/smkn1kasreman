@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('majors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('shortname');
+            $table->string('alias');
             $table->longText('description');
             $table->integer('study_group');
             $table->integer('study_period');
             $table->integer('total_students');
             $table->string('logo');
-            $table->string('image_1');
-            $table->string('image_2');
+            $table->json('photo');
             $table->timestamps();
         });
     }

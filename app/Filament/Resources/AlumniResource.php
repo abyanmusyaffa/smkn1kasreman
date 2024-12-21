@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PartnerResource\Pages;
-use App\Filament\Resources\PartnerResource\RelationManagers;
-use App\Models\Partner;
+use App\Filament\Resources\AlumniResource\Pages;
+use App\Filament\Resources\AlumniResource\RelationManagers;
+use App\Models\Alumni;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,39 +13,38 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PartnerResource extends Resource
+class AlumniResource extends Resource
 {
-    protected static ?string $model = Partner::class;
+    protected static ?string $model = Alumni::class;
 
-    protected static ?string $navigationIcon = 'fas-building-circle-check';
-
-    protected static ?string $navigationLabel = 'Mitra DU/DI';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nama Mitra')
+                Forms\Components\TextInput::make('username')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\FileUpload::make('logo')
-                    ->label('Logo Mitra')
-                    ->directory('/partners'),
-                Forms\Components\Textarea::make('address')
-                    ->label('Alamat Mitra')
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->required()
                     ->maxLength(255),
-                Forms\Components\TagsInput::make('industry')
-                    ->label('Bidang Industri')
-                    ->splitKeys(['Tab'])
-                    ->suggestions([
-                        'Teknologi Informasi',
-                        'Perbankan',
-                        'Tekstil',
-                        'Akuntansi',
-                        'FnB',
-                    ])
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\FileUpload::make('photo')
+                    ->required()
+                    ->default('/default/alumni.jpg'),
+                Forms\Components\TextInput::make('class')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Select::make('major_id')
                     ->required(),
+                Forms\Components\TextInput::make('position')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('company')
+                    ->maxLength(255),
             ]);
     }
 
@@ -53,13 +52,19 @@ class PartnerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('logo'),
+                Tables\Columns\ImageColumn::make('photo'),
+                Tables\Columns\TextColumn::make('username')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('address')
+                Tables\Columns\TextColumn::make('class')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('industry')
-                    ->badge()
+                Tables\Columns\TextColumn::make('major_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('position')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('company')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -93,9 +98,9 @@ class PartnerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPartners::route('/'),
-            'create' => Pages\CreatePartner::route('/create'),
-            'edit' => Pages\EditPartner::route('/{record}/edit'),
+            'index' => Pages\ListAlumnis::route('/'),
+            'create' => Pages\CreateAlumni::route('/create'),
+            'edit' => Pages\EditAlumni::route('/{record}/edit'),
         ];
     }
 }

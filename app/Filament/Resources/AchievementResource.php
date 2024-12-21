@@ -2,37 +2,45 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MajorResource\Pages;
-use App\Filament\Resources\MajorResource\RelationManagers;
-use App\Models\Major;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Achievement;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\AchievementResource\Pages;
+use App\Filament\Resources\AchievementResource\RelationManagers;
 
-class MajorResource extends Resource
+class AchievementResource extends Resource
 {
-    protected static ?string $model = Major::class;
+    protected static ?string $model = Achievement::class;
 
-    protected static ?string $navigationLabel = 'Konsentrasi Keahlian';
+    protected static ?string $navigationIcon = 'fas-medal';
 
-    protected static ?string $navigationIcon = 'fas-graduation-cap';
+    protected static ?string $navigationLabel = 'Prestasi';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->maxLength(255),
+                Forms\Components\Hidden::make('slug'),
+                Forms\Components\TextInput::make('rankings')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('alias')
+                Forms\Components\FileUpload::make('photo')
                     ->required()
-                    ->maxLength(3),
-                Forms\Components\RichEditor::make('description')
-                    ->required()
+                    ->directory('/achievement'),
+                Forms\Components\RichEditor::make('content')
                     ->toolbarButtons([
                         'attachFiles',
                         'blockquote',
@@ -47,25 +55,15 @@ class MajorResource extends Resource
                         'strike',
                         'underline',
                         'undo',
-                    ]),
-                Forms\Components\TextInput::make('study_group')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('study_period')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('total_students')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\FileUpload::make('logo')
-                    ->directory('/major/logo')
-                    ->image()
+                    ])
                     ->required(),
-                Forms\Components\FileUpload::make('photo')
-                    ->multiple()
-                    ->directory('/major/cover')
-                    ->image()
+                Forms\Components\TagsInput::make('tags')
+                    ->splitKeys(['Tab'])
                     ->required(),
+                Forms\Components\Toggle::make('is_pinned')
+                    ->required(),
+                Forms\Components\Hidden::make('user_id')
+                    ->default(fn () => Auth::id()),
             ]);
     }
 
@@ -73,21 +71,10 @@ class MajorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('logo'),
-                Tables\Columns\TextColumn::make('name')
-                    ->sortable()
+                Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('alias')
+                Tables\Columns\TextColumn::make('rankings')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('study_group')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('study_period')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('total_students')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -121,9 +108,9 @@ class MajorResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMajors::route('/'),
-            'create' => Pages\CreateMajor::route('/create'),
-            'edit' => Pages\EditMajor::route('/{record}/edit'),
+            'index' => Pages\ListAchievements::route('/'),
+            'create' => Pages\CreateAchievement::route('/create'),
+            'edit' => Pages\EditAchievement::route('/{record}/edit'),
         ];
     }
 }
