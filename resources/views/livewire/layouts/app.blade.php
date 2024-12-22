@@ -21,7 +21,7 @@
     </head>
  
     <body class="antialiased font-poppins">
-        <livewire:components.loading-overlay />
+        {{-- <livewire:components.loading-overlay /> --}}
         <livewire:templates.header />
         <main>
             {{ $slot }}

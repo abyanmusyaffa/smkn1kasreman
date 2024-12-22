@@ -34,5 +34,8 @@ export default {
             },
         },
     },
-    plugins: [addDynamicIconSelectors()],
+    plugins: [
+        addDynamicIconSelectors(),
+        require('@tailwindcss/typography'),
+    ],
 };
