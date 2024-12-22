@@ -2,27 +2,26 @@
 
 namespace App\Filament\Resources;
 
+use Directory;
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Article;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use App\Models\Achievement;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ArticleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\AchievementResource\Pages;
-use App\Filament\Resources\AchievementResource\RelationManagers;
+use App\Filament\Resources\ArticleResource\RelationManagers;
 
-class AchievementResource extends Resource
+class ArticleResource extends Resource
 {
-    protected static ?string $model = Achievement::class;
+    protected static ?string $model = Article::class;
 
-    protected static ?string $navigationIcon = 'fas-medal';
-
-    protected static ?string $navigationLabel = 'Prestasi';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -34,12 +33,9 @@ class AchievementResource extends Resource
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
                     ->maxLength(255),
                 Forms\Components\Hidden::make('slug'),
-                Forms\Components\TextInput::make('rankings')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\FileUpload::make('photo')
-                    ->required()
-                    ->directory('/achievements'),
+                    ->directory('/articles')
+                    ->required(),
                 Forms\Components\RichEditor::make('content')
                     ->toolbarButtons([
                         'attachFiles',
@@ -56,6 +52,15 @@ class AchievementResource extends Resource
                         'underline',
                         'undo',
                     ])
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('category')
+                    ->options([
+                        'news' => 'News',
+                        'announcement' => 'Announcement',
+                        'enrollment' => 'Enrollment',
+                    ])
+                    ->native(false)
                     ->required(),
                 Forms\Components\TagsInput::make('tags')
                     ->splitKeys(['Tab'])
@@ -71,11 +76,12 @@ class AchievementResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('rankings')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('photo'),
+                Tables\Columns\TextColumn::make('category'),
+                Tables\Columns\IconColumn::make('is_pinned')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -108,9 +114,9 @@ class AchievementResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAchievements::route('/'),
-            'create' => Pages\CreateAchievement::route('/create'),
-            'edit' => Pages\EditAchievement::route('/{record}/edit'),
+            'index' => Pages\ListArticles::route('/'),
+            'create' => Pages\CreateArticle::route('/create'),
+            'edit' => Pages\EditArticle::route('/{record}/edit'),
         ];
     }
 }

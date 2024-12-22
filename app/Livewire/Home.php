@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Achievement;
+use App\Models\Article;
 use App\Models\Major;
 use App\Models\Partner;
 use App\Models\Photo;
@@ -31,7 +32,8 @@ class Home extends Component
             'galleries' => Photo::where('type', 'gallery')->value('photo'),
             'partners' => Partner::select('logo')->get(),
             'achievements' => Achievement::orderBy('created_at', 'desc')->take(4)->get(),
-            'testimonials' => Testimonial::with('alumnis')->get(),
+            'testimonials' => Testimonial::with('alumnis')->take(6)->get(),
+            'articles' => Article::orderBy('created_at', 'desc')->take(4)->get(),
         ]);
     }
 

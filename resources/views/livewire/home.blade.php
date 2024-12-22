@@ -160,114 +160,6 @@
         @foreach($testimonials as $testimonial)
         <livewire:components.card-testimonial wire:key="{{ $testimonial->id }}" :photo="$testimonial->alumnis->photo" :name="$testimonial->alumnis->name" :class="$testimonial->alumnis->class" :position="$testimonial->alumnis->position" :company="$testimonial->alumnis->company" :content="$testimonial->content" :rating="$testimonial->rating" />
         @endforeach
-        {{-- <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
-          <figure style="background-image: url(/img/pp/7.png);" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
-          <figcaption class="flex flex-col w-full text-center">
-            <div class="flex w-full gap-1 items-center justify-center">
-              <p class="text-sm lg:text-base text-slate-700">Jihan Azzahra Widodo</p>
-              <p class="text-2xs lg:text-xs text-slate-600">/ Alumni 2035</p>
-            </div>
-            <p class="text-2xs lg:text-xs text-slate-600">D3 Teknik Informatika - Universitas Amikom Yogyakarta</p>
-          </figcaption>
-          <p class="text-xs lg:text-sm text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda optio odit tenetur ut vero inventore non amet eum fuga perspiciatis debitis quas provident vel, est, molestiae ab cupiditate nobis sit. Ea nisi in hic, ratione dignissimos mollitia minima sequi illum earum quis vero! Dolore corrupti quia voluptatibus perspiciatis cumque necessitatibus?</p>
-          <div class="flex w-full justify-center gap-1 lg:gap-2">
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star-outline] lg:text-xl"></span>
-          </div>
-        </article>
-        <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
-          <figure style="background-image: url(/img/pp/7.png);" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
-          <figcaption class="flex flex-col w-full text-center">
-            <div class="flex w-full gap-1 items-center justify-center">
-              <p class="text-sm lg:text-base text-slate-700">Jihan Azzahra Widodo</p>
-              <p class="text-2xs lg:text-xs text-slate-600">/ Alumni 2035</p>
-            </div>
-            <p class="text-2xs lg:text-xs text-slate-600">D3 Teknik Informatika - Universitas Amikom Yogyakarta</p>
-          </figcaption>
-          <p class="text-xs lg:text-sm text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda optio odit tenetur ut vero inventore non amet eum fuga perspiciatis debitis quas provident vel, est, molestiae ab cupiditate nobis sit. Ea nisi in hic, ratione dignissimos mollitia minima sequi illum earum quis vero! Dolore corrupti quia voluptatibus perspiciatis cumque necessitatibus?</p>
-          <div class="flex w-full justify-center gap-1 lg:gap-2">
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star-outline] lg:text-xl"></span>
-          </div>
-        </article>
-        <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
-          <figure style="background-image: url(/img/pp/7.png);" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
-          <figcaption class="flex flex-col w-full text-center">
-            <div class="flex w-full gap-1 items-center justify-center">
-              <p class="text-sm lg:text-base text-slate-700">Jihan Azzahra Widodo</p>
-              <p class="text-2xs lg:text-xs text-slate-600">/ Alumni 2035</p>
-            </div>
-            <p class="text-2xs lg:text-xs text-slate-600">D3 Teknik Informatika - Universitas Amikom Yogyakarta</p>
-          </figcaption>
-          <p class="text-xs lg:text-sm text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda optio odit tenetur ut vero inventore non amet eum fuga perspiciatis debitis quas provident vel, est, molestiae ab cupiditate nobis sit. Ea nisi in hic, ratione dignissimos mollitia minima sequi illum earum quis vero! Dolore corrupti quia voluptatibus perspiciatis cumque necessitatibus?</p>
-          <div class="flex w-full justify-center gap-1 lg:gap-2">
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star-outline] lg:text-xl"></span>
-          </div>
-        </article>
-        <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
-          <figure style="background-image: url(/img/pp/7.png);" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
-          <figcaption class="flex flex-col w-full text-center">
-            <div class="flex w-full gap-1 items-center justify-center">
-              <p class="text-sm lg:text-base text-slate-700">Jihan Azzahra Widodo</p>
-              <p class="text-2xs lg:text-xs text-slate-600">/ Alumni 2035</p>
-            </div>
-            <p class="text-2xs lg:text-xs text-slate-600">D3 Teknik Informatika - Universitas Amikom Yogyakarta</p>
-          </figcaption>
-          <p class="text-xs lg:text-sm text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda optio odit tenetur ut vero inventore non amet eum fuga perspiciatis debitis quas provident vel, est, molestiae ab cupiditate nobis sit. Ea nisi in hic, ratione dignissimos mollitia minima sequi illum earum quis vero! Dolore corrupti quia voluptatibus perspiciatis cumque necessitatibus?</p>
-          <div class="flex w-full justify-center gap-1 lg:gap-2">
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star-outline] lg:text-xl"></span>
-          </div>
-        </article>
-        <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
-          <figure style="background-image: url(/img/pp/7.png);" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
-          <figcaption class="flex flex-col w-full text-center">
-            <div class="flex w-full gap-1 items-center justify-center">
-              <p class="text-sm lg:text-base text-slate-700">Jihan Azzahra Widodo</p>
-              <p class="text-2xs lg:text-xs text-slate-600">/ Alumni 2035</p>
-            </div>
-            <p class="text-2xs lg:text-xs text-slate-600">D3 Teknik Informatika - Universitas Amikom Yogyakarta</p>
-          </figcaption>
-          <p class="text-xs lg:text-sm text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda optio odit tenetur ut vero inventore non amet eum fuga perspiciatis debitis quas provident vel, est, molestiae ab cupiditate nobis sit. Ea nisi in hic, ratione dignissimos mollitia minima sequi illum earum quis vero! Dolore corrupti quia voluptatibus perspiciatis cumque necessitatibus?</p>
-          <div class="flex w-full justify-center gap-1 lg:gap-2">
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star-outline] lg:text-xl"></span>
-          </div>
-        </article>
-        <article class="flex min-w-[100%] lg:min-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
-          <figure style="background-image: url(/img/pp/7.png);" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
-          <figcaption class="flex flex-col w-full text-center">
-            <div class="flex w-full gap-1 items-center justify-center">
-              <p class="text-sm lg:text-base text-slate-700">Jihan Azzahra Widodo</p>
-              <p class="text-2xs lg:text-xs text-slate-600">/ Alumni 2035</p>
-            </div>
-            <p class="text-2xs lg:text-xs text-slate-600">D3 Teknik Informatika - Universitas Amikom Yogyakarta</p>
-          </figcaption>
-          <p class="text-xs lg:text-sm text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda optio odit tenetur ut vero inventore non amet eum fuga perspiciatis debitis quas provident vel, est, molestiae ab cupiditate nobis sit. Ea nisi in hic, ratione dignissimos mollitia minima sequi illum earum quis vero! Dolore corrupti quia voluptatibus perspiciatis cumque necessitatibus?</p>
-          <div class="flex w-full justify-center gap-1 lg:gap-2">
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star] lg:text-xl"></span>
-            <span class="icon-[mdi--star-outline] lg:text-xl"></span>
-          </div>
-        </article> --}}
       </div>
       <footer>
         <livewire:components.more-button text="Cerita Lainya" href="/alumni" />
@@ -279,7 +171,10 @@
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
     <livewire:components.title-left :text="$school->alias" span="Terkini" />
       <div class="drag-to-scroll flex w-full gap-4 overflow-x-scroll lg:overflow-x-visible cursor-grab active:cursor-grabbing snap-x snap-mandatory p-2 lg:p-0">
-        <a href="" class="min-w-[100%] lg:min-w-[20%] group">
+        @foreach($articles as $article)
+          <livewire:components.card-article-home wire:key="{{ $article->id }}" :category="$article->category" :slug="$article->slug" :photo="$article->photo" :createdAt="$article->created_at" :title="$article->title" />
+        @endforeach
+        {{-- <a href="" class="min-w-[100%] lg:min-w-[20%] group">
           <article class="flex w-full flex-col rounded-2xl pb-4 gap-12 bg-white lg:group-hover:scale-105 duration-500 transition-all">
               <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="aspect-[4/3] w-full rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
               <figcaption class="w-full flex flex-col gap-1 lg:gap-2 items-center relative px-4">
@@ -330,7 +225,7 @@
                 <h4 class="text-lg lg:text-xl text-slate-700 text-center h-[4lh] line-clamp-4">Desain Busana asdfasd kabupaten Ngawi tahun 2024</h4>
               </figcaption>
           </article>
-        </a>
+        </a> --}}
       </div>
       <footer>
         <livewire:components.more-button text="Berita Lainya" href="/news" />
