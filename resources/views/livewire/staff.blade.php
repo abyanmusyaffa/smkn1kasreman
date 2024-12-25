@@ -43,7 +43,7 @@
 
     <!-- staff-->
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
-        <livewire:components.title-left text="Tenaga" span="kependidikan" />
+        <livewire:components.title-left text="Tenaga" span="Kependidikan" />
       <div class="flex w-full lg:justify-between pb-1 gap-2 drag-to-scroll cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll">
         @foreach($staffMembers as $staff )
             <livewire:components.card-staff wire:key="{{ $staff->id }}" :photo="$staff->photo" :name="$staff->name" :role="$staff->role" />

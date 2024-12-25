@@ -11,7 +11,7 @@
       <div class="hidden lg:flex lg:gap-1 2xl:gap-4 items-center">
         <a href="/" wire:navigate class="flex flex-col gap-1 px-2 group">
           <p class="text-slate-50">Beranda</p>
-          <div class="w-full h-0.5 {{ $title === 'Beranda' ? 'bg-slate-50' : 'bg-transparent' }} group-hover:bg-slate-50 transition-all"></div>
+          <div class="w-full h-0.5 {{ $title === 'Beranda' ? 'bg-slate-50' : 'bg-transparent' }} group-hover:bg-slate-50 transition-all" ... wire:current="bg-slate-50"></div>
         </a>
         <div class="flex flex-col gap-1 px-2 relative cursor-pointer group/dropdown">
           <div class="flex gap-1 items-center">
@@ -38,7 +38,7 @@
               <div class="h-[1px] w-full bg-slate-200"></div>
             </a>
             <a href="/alumni" wire:navigate class="flex flex-col gap-1 group">
-              <p class="text-sm {{ $title === 'Alumni' ? 'text-blue-500' : 'text-slate-500' }} group-hover:text-blue-500">Alumni</p>
+              <p class="text-sm {{ $title === 'Cerita Alumni' ? 'text-blue-500' : 'text-slate-500' }} group-hover:text-blue-500">Alumni</p>
               <div class="h-[1px] w-full bg-slate-200"></div>
             </a>
             <a href="/download" wire:navigate class="flex flex-col gap-1 group">

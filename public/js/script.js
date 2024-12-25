@@ -13,57 +13,60 @@ document.addEventListener("DOMContentLoaded", function() {
   
   setInterval(showNextSlideHero, 4000);
   // slide hero
-});
 
-// slide achieve
-const slidesAchieve = document.querySelectorAll('[data-slide-achievement]');
-let currentSlideAchieve = 0;
-
-function showNextSlideAchieve() {
-    slidesAchieve[currentSlideAchieve].classList.add('hidden');
-
-    currentSlideAchieve = (currentSlideAchieve + 1) % slidesAchieve.length;
-
-    slidesAchieve[currentSlideAchieve].classList.remove('hidden');
-}
-
-setInterval(showNextSlideAchieve, 4000);
-// slide achieve
-
-
-// drag to scroll alumni
-let mouseDown = false;
-let startX, scrollLeft;
-
-const sliders = document.querySelectorAll('.drag-to-scroll');
-
-const startDragging = (e, slider) => {
-  mouseDown = true;
-  startX = e.pageX - slider.offsetLeft;
-  scrollLeft = slider.scrollLeft;
-}
-
-const stopDragging = () => {
-  mouseDown = false;
-}
-
-const move = (e, slider) => {
-  e.preventDefault();
-  if(!mouseDown) { return; }
-  const x = e.pageX - slider.offsetLeft;
-  const scroll = x - startX;
-  slider.scrollLeft = scrollLeft - scroll;
-}
-
-sliders.forEach(slider => {
-  if (slider) {
-    slider.addEventListener('mousemove', (e) => move(e, slider), false);
-    slider.addEventListener('mousedown', (e) => startDragging(e, slider), false);
-    slider.addEventListener('mouseup', stopDragging, false);
-    slider.addEventListener('mouseleave', stopDragging, false);
+  // slide achieve
+  const slidesAchieve = document.querySelectorAll('[data-slide-achievement]');
+  let currentSlideAchieve = 0;
+  
+  function showNextSlideAchieve() {
+      slidesAchieve[currentSlideAchieve].classList.add('hidden');
+  
+      currentSlideAchieve = (currentSlideAchieve + 1) % slidesAchieve.length;
+  
+      slidesAchieve[currentSlideAchieve].classList.remove('hidden');
   }
+  
+  setInterval(showNextSlideAchieve, 4000);
+  // slide achieve
+
+
+  // drag to scroll alumni
+  let mouseDown = false;
+  let startX, scrollLeft;
+  
+  const sliders = document.querySelectorAll('.drag-to-scroll');
+  
+  const startDragging = (e, slider) => {
+    mouseDown = true;
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  }
+  
+  const stopDragging = () => {
+    mouseDown = false;
+  }
+  
+  const move = (e, slider) => {
+    e.preventDefault();
+    if(!mouseDown) { return; }
+    const x = e.pageX - slider.offsetLeft;
+    const scroll = x - startX;
+    slider.scrollLeft = scrollLeft - scroll;
+  }
+  
+  sliders.forEach(slider => {
+    if (slider) {
+      slider.addEventListener('mousemove', (e) => move(e, slider), false);
+      slider.addEventListener('mousedown', (e) => startDragging(e, slider), false);
+      slider.addEventListener('mouseup', stopDragging, false);
+      slider.addEventListener('mouseleave', stopDragging, false);
+    }
+  });
+  // drag to scroll alumni
 });
-// drag to scroll alumni
+
+
+
 
 
 // loading

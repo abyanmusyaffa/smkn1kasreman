@@ -4,7 +4,7 @@ namespace App\Livewire\Components;
 
 use Livewire\Component;
 
-class CardTestimonial extends Component
+class CardTestimonialHome extends Component
 {
     public $photo;
     public $name;
@@ -13,9 +13,9 @@ class CardTestimonial extends Component
     public $company;
     public $content;
     public $rating;
-    
+
     public function render()
     {
-        return view('livewire.components.card-testimonial');
+        return view('livewire.components.card-testimonial-home');
     }
 }

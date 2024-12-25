@@ -36,7 +36,7 @@
         <p class="lg:text-xl text-slate-700 lg:w-3/5">
           SMKN 1 Kasreman bekerja sama dengan berbagai mitra DU/DI untuk mendukung pembelajaran siswa dan membuka peluang karir di dunia kerja.
         </p>
-        <div class="flex overflow-x-hidden">
+        <div class="flex w-full overflow-x-hidden">
           <div class="flex *:object-contain *:h-12 gap-9 lg:gap-12 items-center flex-shrink-0 animate-partners-scroll pe-9 lg:pe-12">
             @foreach($partners as $partner)
             <img src="/storage/{{ $partner->logo }}" alt="" />
@@ -146,7 +146,7 @@
         <livewire:components.title-left text="Galeri" :span="$school->alias" />
       <figure class="grid grid-cols-2 lg:grid-cols-3 grid-rows-6 lg:grid-rows-3 w-full gap-2 lg:gap-4">
         <iframe class="w-full aspect-video lg:h-full lg:aspect-auto rounded-2xl col-span-2 row-span-2" src="https://www.youtube.com/embed/{{ $video_id }}?si=Hifffx7NdQLbAi2f&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        @foreach($galleries as $index  => $galerry)
+        @foreach($galleries as $index => $galerry)
         <div style="background-image: url(/storage/{{ $galerry }});" class="w-full aspect-video rounded-2xl bg-center bg-no-repeat bg-cover {{ $index == 2 ? 'col-span-2 row-span-2 lg:row-span-1 lg:col-span-1' : '' }}"></div>
         @endforeach
       </figure>
@@ -158,7 +158,7 @@
         <livewire:components.title-right text="Cerita" span="Alumni" />
       <div class="drag-to-scroll flex gap-4 w-full cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll pt-10 lg:pt-14 p-2">
         @foreach($testimonials as $testimonial)
-        <livewire:components.card-testimonial wire:key="{{ $testimonial->id }}" :photo="$testimonial->alumnis->photo" :name="$testimonial->alumnis->name" :class="$testimonial->alumnis->class" :position="$testimonial->alumnis->position" :company="$testimonial->alumnis->company" :content="$testimonial->content" :rating="$testimonial->rating" />
+        <livewire:components.card-testimonial-home wire:key="{{ $testimonial->id }}" :photo="$testimonial->alumnis->photo" :name="$testimonial->alumnis->name" :class="$testimonial->alumnis->class" :position="$testimonial->alumnis->position" :company="$testimonial->alumnis->company" :content="$testimonial->content" :rating="$testimonial->rating" />
         @endforeach
       </div>
       <footer>
