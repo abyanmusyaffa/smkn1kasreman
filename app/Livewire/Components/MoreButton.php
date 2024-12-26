@@ -8,6 +8,8 @@ class MoreButton extends Component
 {
     public $text;
     public $href;
+    public $elemen = 'a';
+    public $flex = 'flex';
 
     public function render()
     {

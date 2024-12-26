@@ -3,7 +3,7 @@
     <article class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Mitra" span="DU/DI" />
 
-        <livewire:grid.grid-partner />
+        <livewire:components.paginate :onPartners="true" />
           <!-- search -->
           <!-- <div class="relative w-2/3 lg:w-1/5 self-end">
               <span class="icon-[mdi--search] text-2xl text-slate-500 absolute left-2 top-1/2 -translate-y-1/2"></span>

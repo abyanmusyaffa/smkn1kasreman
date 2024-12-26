@@ -3,7 +3,7 @@
     <article class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Cerita" span="Alumni" />
 
-        <livewire:grid.grid-alumni />
+        <livewire:components.paginate :onTestimonials="true" />
     </article>
     <!-- alumni -->
 </div>

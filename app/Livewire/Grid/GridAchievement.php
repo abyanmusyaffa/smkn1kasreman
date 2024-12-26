@@ -14,7 +14,7 @@ class GridAchievement extends Component
     public function render()
     {
         return view('livewire.grid.grid-achievement', [
-            'achievements'=> AchievementModel::paginate(12),
+            'achievements'=> AchievementModel::where('is_pinned', false)->paginate(12),
         ]);
     }
 }

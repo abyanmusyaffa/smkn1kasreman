@@ -61,7 +61,7 @@
       </div>
       <div class="grid grid-cols-12 w-full lg:w-3/5 gap-2 lg:gap-4">
         @foreach($majors as $major)
-          <livewire:components.card-major-home wire:key="{{ $major->id }}" :alias="$major->alias" :colSpan="$loop->first ? 'col-span-7' : ($loop->last ? 'col-span-7' : 'col-span-5')" :logo="$major->logo" :name="$major->name" />
+          <livewire:components.card-major-home wire:key="{{ $major->id }}" :alias="$major->alias" :colSpan="$loop->first ? 'lg:col-span-7' : ($loop->last ? 'lg:col-span-7' : 'lg:col-span-5')" :logo="$major->logo" :name="$major->name" />
         @endforeach
       </div>
      </aside>
@@ -153,9 +153,20 @@
     </aside>
     <!-- gallery -->
 
+    <!-- news -->
+    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+      <livewire:components.title-right :text="$school->alias" span="Terkini" />
+        <div class="drag-to-scroll flex w-full gap-4 overflow-x-scroll lg:overflow-x-visible cursor-grab active:cursor-grabbing snap-x snap-mandatory p-2 lg:p-0">
+          @foreach($articles as $article)
+            <livewire:components.card-article-home wire:key="{{ $article->id }}" :category="$article->category" :slug="$article->slug" :photo="$article->photo" :createdAt="$article->created_at" :title="$article->title" />
+          @endforeach
+        </div>
+      </aside>
+    <!-- news -->
+
     <!-- alumni story -->
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
-        <livewire:components.title-right text="Cerita" span="Alumni" />
+        <livewire:components.title-left text="Cerita" span="Alumni" />
       <div class="drag-to-scroll flex gap-4 w-full cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll pt-10 lg:pt-14 p-2">
         @foreach($testimonials as $testimonial)
         <livewire:components.card-testimonial-home wire:key="{{ $testimonial->id }}" :photo="$testimonial->alumnis->photo" :name="$testimonial->alumnis->name" :class="$testimonial->alumnis->class" :position="$testimonial->alumnis->position" :company="$testimonial->alumnis->company" :content="$testimonial->content" :rating="$testimonial->rating" />
@@ -166,71 +177,4 @@
       </footer>
     </aside>
     <!-- alumni story -->
-
-    <!-- news -->
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
-    <livewire:components.title-left :text="$school->alias" span="Terkini" />
-      <div class="drag-to-scroll flex w-full gap-4 overflow-x-scroll lg:overflow-x-visible cursor-grab active:cursor-grabbing snap-x snap-mandatory p-2 lg:p-0">
-        @foreach($articles as $article)
-          <livewire:components.card-article-home wire:key="{{ $article->id }}" :category="$article->category" :slug="$article->slug" :photo="$article->photo" :createdAt="$article->created_at" :title="$article->title" />
-        @endforeach
-        {{-- <a href="" class="min-w-[100%] lg:min-w-[20%] group">
-          <article class="flex w-full flex-col rounded-2xl pb-4 gap-12 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="aspect-[4/3] w-full rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-full flex flex-col gap-1 lg:gap-2 items-center relative px-4">
-                <div class="flex flex-col bg-blue-600 px-2 py-1 rounded-lg absolute -top-24 left-4">
-                  <p class="font-semibold text-slate-50 text-4xl">26</p>
-                  <p class="text-slate-50 text-sm">Oktober</p>
-                  <p class="text-slate-50 text-sm">2024</p>
-                </div>
-                <h4 class="text-lg lg:text-xl text-slate-700 text-center h-[4lh] line-clamp-4">Desain Busana asdfasd kabupaten Ngawi tahun 2024</h4>
-              </figcaption>
-          </article>
-        </a>
-        <a href="" class="min-w-[100%] lg:min-w-[20%] group">
-          <article class="flex w-full flex-col rounded-2xl pb-4 gap-12 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="aspect-[4/3] w-full rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-full flex flex-col gap-1 lg:gap-2 items-center relative px-4">
-                <div class="flex flex-col bg-blue-600 px-2 py-1 rounded-lg absolute -top-24 left-4">
-                  <p class="font-semibold text-slate-50 text-4xl">26</p>
-                  <p class="text-slate-50 text-sm">Oktober</p>
-                  <p class="text-slate-50 text-sm">2024</p>
-                </div>
-                <h4 class="text-lg lg:text-xl text-slate-700 text-center h-[4lh] line-clamp-4">Desain Busana asdfasd kabupaten Ngawi tahun 2024</h4>
-              </figcaption>
-          </article>
-        </a>
-        <a href="" class="min-w-[100%] lg:min-w-[20%] group">
-          <article class="flex w-full flex-col rounded-2xl pb-4 gap-12 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="aspect-[4/3] w-full rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-full flex flex-col gap-1 lg:gap-2 items-center relative px-4">
-                <div class="flex flex-col bg-blue-600 px-2 py-1 rounded-lg absolute -top-24 left-4">
-                  <p class="font-semibold text-slate-50 text-4xl">26</p>
-                  <p class="text-slate-50 text-sm">Oktober</p>
-                  <p class="text-slate-50 text-sm">2024</p>
-                </div>
-                <h4 class="text-lg lg:text-xl text-slate-700 text-center h-[4lh] line-clamp-4">Desain Busana asdfasd kabupaten Ngawi tahun 2024</h4>
-              </figcaption>
-          </article>
-        </a>
-        <a href="" class="min-w-[100%] lg:min-w-[20%] group">
-          <article class="flex w-full flex-col rounded-2xl pb-4 gap-12 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="aspect-[4/3] w-full rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-full flex flex-col gap-1 lg:gap-2 items-center relative px-4">
-                <div class="flex flex-col bg-blue-600 px-2 py-1 rounded-lg absolute -top-24 left-4">
-                  <p class="font-semibold text-slate-50 text-4xl">26</p>
-                  <p class="text-slate-50 text-sm">Oktober</p>
-                  <p class="text-slate-50 text-sm">2024</p>
-                </div>
-                <h4 class="text-lg lg:text-xl text-slate-700 text-center h-[4lh] line-clamp-4">Desain Busana asdfasd kabupaten Ngawi tahun 2024</h4>
-              </figcaption>
-          </article>
-        </a> --}}
-      </div>
-      <footer>
-        <livewire:components.more-button text="Berita Lainya" href="/news" />
-      </footer>
-    </aside>
-    <!-- news -->
-
   </div>

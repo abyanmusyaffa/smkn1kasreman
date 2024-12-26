@@ -90,8 +90,8 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name' => 'Akuntansi',
-                'alias' => 'AK',
+                'name' => 'Akuntansi dan Keuangan Lembaga',
+                'alias' => 'AKL',
                 'description' => '<p>Akuntansi adalah bidang yang berfokus pada pencatatan, analisis, dan pelaporan keuangan suatu organisasi atau perusahaan. Keahlian ini sangat penting karena menyangkut pengelolaan keuangan yang transparan dan akurat, yang dapat digunakan untuk pengambilan keputusan dan perencanaan keuangan. Akuntansi mencakup berbagai proses yang melibatkan pengukuran, pemrosesan, dan penyajian informasi keuangan.</p><h2><strong>Kompetensi yang Dipelajari dalam Akuntansi</strong></h2><p>Siswa yang memilih konsentrasi Akuntansi akan mempelajari berbagai keterampilan yang relevan di dunia kerja, antara lain:</p><ol><li><strong>Pencatatan Keuangan</strong><ul><li>Menyusun dan mencatat transaksi keuangan perusahaan.</li><li>Memahami prinsip-prinsip dasar akuntansi, seperti sistem pencatatan ganda dan penggunaan akun.</li></ul></li><li><strong>Penyusunan Laporan Keuangan</strong><ul><li>Membuat laporan keuangan seperti neraca, laporan laba rugi, dan laporan arus kas.</li><li>Menganalisis laporan keuangan untuk membantu dalam pengambilan keputusan.</li></ul></li><li><strong>Akuntansi Pajak</strong><ul><li>Menghitung kewajiban pajak perusahaan sesuai dengan peraturan perpajakan yang berlaku.</li><li>Menyusun laporan pajak dan memastikan kepatuhan terhadap peraturan perpajakan.</li></ul></li><li><strong>Akuntansi Manajerial</strong><ul><li>Menganalisis biaya dan pendapatan untuk membantu perencanaan dan pengendalian keuangan perusahaan.</li><li>Menyusun anggaran dan proyeksi keuangan.</li></ul></li><li><strong>Audit dan Pengendalian Internal</strong><ul><li>Menilai keandalan dan akurasi laporan keuangan melalui audit internal.</li><li>Menerapkan prosedur pengendalian internal untuk mencegah penyelewengan atau kesalahan dalam pencatatan keuangan.</li></ul></li></ol><h2><strong>Prospek Kerja Lulusan Akuntansi</strong></h2><p>Lulusan Akuntansi memiliki peluang karier yang sangat luas di berbagai sektor, antara lain:</p><ul><li><strong>Akuntan</strong><br>Bertanggung jawab untuk pencatatan dan penyusunan laporan keuangan perusahaan atau organisasi.</li><li><strong>Auditor</strong><br>Memastikan bahwa laporan keuangan sesuai dengan standar akuntansi dan peraturan yang berlaku.</li><li><strong>Pajak Konsultan</strong><br>Memberikan nasihat terkait perencanaan pajak dan kepatuhan terhadap peraturan perpajakan.</li><li><strong>Manajer Keuangan</strong><br>Mengelola dan merencanakan aspek keuangan perusahaan, seperti anggaran dan investasi.</li><li><strong>Wirausaha di Bidang Jasa Akuntansi</strong><br>Membuka layanan konsultasi akuntansi atau pembukuan untuk usaha kecil dan menengah.</li></ul><h2><strong>Mengapa Memilih Konsentrasi Akuntansi?</strong></h2><p>Berikut beberapa alasan mengapa memilih konsentrasi Akuntansi adalah keputusan yang tepat:</p><ul><li><strong>Peluang Karier yang Luas</strong><br>Semua perusahaan, baik kecil maupun besar, memerlukan akuntan untuk mengelola keuangan mereka, membuka banyak peluang karier.</li><li><strong>Keterampilan yang Dapat Dipertanggungjawabkan</strong><br>Keahlian dalam akuntansi sangat dihargai dan selalu dibutuhkan di dunia profesional.</li><li><strong>Peluang untuk Sertifikasi Profesional</strong><br>Lulusan akuntansi dapat melanjutkan studi dan mendapatkan sertifikasi profesional, seperti CPA (Certified Public Accountant) atau CA (Chartered Accountant).</li><li><strong>Peluang Wirausaha</strong><br>Akuntansi memberikan dasar yang kuat bagi mereka yang ingin memulai bisnis atau membuka jasa konsultasi keuangan.</li></ul><p><br></p><p>Konsentrasi Akuntansi adalah pilihan yang sangat baik bagi mereka yang tertarik dengan pengelolaan keuangan dan memiliki ketelitian tinggi. Dengan peluang karier yang luas dan keterampilan yang dapat diterapkan di berbagai sektor, Akuntansi membuka jalan bagi kesuksesan profesional di dunia kerja.</p>',
                 'study_group' => 3,
                 'study_period' => 3,
@@ -561,5 +561,106 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
+
+        DB::table('extracurriculars')->insert([
+            [
+                'logo' => '/default/extracurricular.svg',
+                'name' => 'Mading Skanka',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZSXEXJHEKXRCJSEV1WJ7PK.png',
+                'name' => 'Skanka Tari',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZSYCQTGDXYDRC8Z39FNQVJ.png',
+                'name' => 'Paskibraka SMK N 1 Kasreman',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZSZ1A39E5JNFNW1H680DYG.png',
+                'name' => 'Skanka E Sports Team',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZT3F6CNYBH4HNQRV8CCBK5.png',
+                'name' => 'Muska (Multimedia Skanka)',
+                'link' => 'https://www.instagram.com/officiall_muska?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZT4NA81S4NVWP57ZAB3RH5.png',
+                'name' => 'PMR WIRA Skanka',
+                'link' => 'https://www.instagram.com/pmr.wira.skanka?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZT5MJ144AJG2XNX72D3Y71.png',
+                'name' => 'Skanka VC',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZT75WAGV6CV7ZW9FFT3JTS.png',
+                'name' => 'Skanka Blue Futsal Club',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZT9CYG6CGDVSXW5HNB0BN7.png',
+                'name' => 'Takmir Masjid At Tarbiyyah',
+                'link' => 'https://www.instagram.com/tamaat_skanka?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZTANT1HEW22AYNAM1HCK2V.png',
+                'name' => 'OSIS Crew Skanka',
+                'link' => 'https://www.instagram.com/osisskanka?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZTBKQQ2QJDNAS6C7EMBKJA.png',
+                'name' => 'KPA Skanka',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZTD55JTB4A5FA1X3148636.png',
+                'name' => 'Ambalan DIPKA Skanka',
+                'link' => 'https://www.instagram.com/ambalandipka2004?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => 'extracurricular/01JFZTDVTZB68H0HJ278YVDXN0.png',
+                'name' => 'Skanka FC',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'logo' => '/default/extracurricular.svg',
+                'name' => 'Skanka Potrait',
+                'link' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+        ]);
     }
 }

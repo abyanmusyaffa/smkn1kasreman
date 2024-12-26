@@ -1,4 +1,3 @@
-{{-- @dd($partners) --}}
 <div class="flex w-full flex-col gap-6">
     <div class="grid w-full gap-4 lg:grid-cols-2">
         @foreach($partners as $partner)

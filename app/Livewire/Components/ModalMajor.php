@@ -7,10 +7,10 @@ use Livewire\Component;
 class ModalMajor extends Component
 {
     public $isOpen = false;
-    public $logo ;
-    public $alias ;
-    public $name ;
-    public $description ;
+    public $logo;
+    public $alias;
+    public $name;
+    public $description;
 
     public function open($description, $logo, $alias, $name)
     {

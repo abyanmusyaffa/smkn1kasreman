@@ -23,12 +23,12 @@
         <div class="grid grid-cols-2 lg:grid-cols-5 gap-2 w-full">
           <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--people-outline] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">18</p>
+            <p class="text-5xl font-semibold">{{ $totalStaff }}</p>
             <p class="text-sm lg:text-lg font-medium whitespace-nowrap">Tenaga Kependidikan</p>
           </div>
           <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--user-outline] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">47</p>
+            <p class="text-5xl font-semibold">{{ $totalTeachers }}</p>
             <p class="text-sm lg:text-lg font-medium">Guru</p>
           </div>
           <div class="flex flex-col lg:order-first col-span-2 lg:col-span-1 items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
@@ -43,7 +43,7 @@
           </div>
           <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--tennis-ball-outline] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">526</p>
+            <p class="text-5xl font-semibold">{{ $totalExtracurriculars }}</p>
             <p class="text-sm lg:text-lg font-medium">Ekstrakurikuler</p>
           </div>
         </div>

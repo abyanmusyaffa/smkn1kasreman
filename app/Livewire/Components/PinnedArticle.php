@@ -4,27 +4,23 @@ namespace App\Livewire\Components;
 
 use Livewire\Component;
 
-class CardMajor extends Component
+class PinnedArticle extends Component
 {
-    public $logo;
+    public $slug;
+    public $createdAt;
+    public $title;
+    public $content;
     public $photo;
-    public $alias;
-    public $name;
-    public $description;
-    public $studyGroup;
-    public $studyPeriod;
-    public $totalStudents;
-    public $index;
 
     public function getFirstParagraph()
     {
-        if (empty($this->description)) {
+        if (empty($this->content)) {
             return '';
         }
 
         $dom = new \DOMDocument();
         libxml_use_internal_errors(true);
-        $dom->loadHTML(mb_convert_encoding($this->description, 'HTML-ENTITIES', 'UTF-8'));
+        $dom->loadHTML(mb_convert_encoding($this->content, 'HTML-ENTITIES', 'UTF-8'));
         libxml_clear_errors();
 
         $paragraphs = $dom->getElementsByTagName('p');
@@ -34,10 +30,10 @@ class CardMajor extends Component
 
         return '';
     }
-    
+
     public function render()
     {
-        return view('livewire.components.card-major', [
+        return view('livewire.components.pinned-article', [
             'summary' => $this->getFirstParagraph(),
         ]);
     }

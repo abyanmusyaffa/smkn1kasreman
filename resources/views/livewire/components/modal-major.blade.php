@@ -22,15 +22,6 @@
                 </article>
             </div>
         </div>
-        {{-- <div class="bg-white rounded-lg shadow-lg p-6 max-w-lg w-full">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Deskripsi</h2>
-            <p class="text-gray-700">{{ $description }}</p>
-            <div class="mt-4 flex justify-end gap-2">
-                <button wire:click="close" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">
-                    Tutup
-                </button>
-            </div>
-        </div> --}}
     </div>
     @endif
 </div>

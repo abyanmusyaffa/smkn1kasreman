@@ -8,6 +8,7 @@ use App\Models\School;
 use Livewire\Component;
 use App\Models\Facility;
 use Livewire\Attributes\Title;
+use App\Models\Extracurricular;
 
 class About extends Component
 {
@@ -26,7 +27,10 @@ class About extends Component
             'school' => School::first(),
             'facilities' => Facility::all(),
             'totalStudents' => Major::sum('total_students'),
+            'totalTeachers' => Staff::where('category', 'teacher')->count(),
+            'totalStaff' => Staff::where('category', 'staff')->count(),
             'totalMajors' => Major::count(),
+            'totalExtracurriculars' => Extracurricular::count(),
         ]);
     }
 }
