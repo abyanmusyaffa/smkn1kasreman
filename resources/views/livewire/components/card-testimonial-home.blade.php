@@ -7,7 +7,7 @@
       </div>
       <p class="text-2xs lg:text-xs text-slate-600">{{ $position }} - {{ $company }}</p>
     </figcaption>
-    <p class="text-xs lg:text-sm text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">{{ $content }}</p>
+    <p class="text-xs lg:text-base text-slate-700 h-[11lh] lg:h-[9lh] line-clamp-[11] lg:line-clamp-[9]">{{ $content }}</p>
     <footer class="flex w-full justify-center gap-1 lg:gap-2">
         @for ($i = 1; $i <= 5; $i++)
             @if ($i <= $rating)

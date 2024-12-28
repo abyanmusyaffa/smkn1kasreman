@@ -36,6 +36,12 @@
                 <livewire:components.card-article wire:key="{{ $item->id }}" :category="$item->category" :slug="$item->slug" :photo="$item->photo" :createdAt="$item->created_at" :title="$item->title" />
             @endforeach
         </div>
+    @elseif($jobfairs && $jobfairs->count() > 0)
+        <div class="grid w-full gap-4 lg:grid-cols-4">
+            @foreach($jobfairs as $jobfair)
+                <livewire:components.card-jobfair wire:key="{{ $jobfair->id }}" :slug="$jobfair->slug" :photo="$jobfair->photo" :deadline="$jobfair->deadline" :title="$jobfair->title" />
+            @endforeach
+        </div>
     @endif
 
     @if($partners && $partners->count() > 0)
@@ -50,5 +56,7 @@
         {{ $enrollments->links(data: ['scrollTo' => false]) }}
     @elseif($news && $news->count() > 0)
         {{ $news->links(data: ['scrollTo' => false]) }}
+    @elseif($jobfairs && $jobfairs->count() > 0)
+        {{ $jobfairs->links(data: ['scrollTo' => false]) }}
     @endif
 </div>

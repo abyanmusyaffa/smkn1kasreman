@@ -20,6 +20,6 @@ class Alumni extends Model
 
     public function majors(): BelongsTo
     {
-        return $this->belongsTo(Major::class);
+        return $this->belongsTo(Major::class, 'major_id');
     }
 }

@@ -16,10 +16,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PartnerResource extends Resource
 {
     protected static ?string $model = Partner::class;
+    protected static ?string $modelLabel = 'Mitra DU/DI';
+    protected static ?string $pluralModelLabel = 'Mitra DU/DI';
 
     protected static ?string $navigationIcon = 'fas-building-circle-check';
-
-    protected static ?string $navigationLabel = 'Mitra DU/DI';
 
     public static function form(Form $form): Form
     {
@@ -53,20 +53,27 @@ class PartnerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('logo'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
+                    ->wrap()
+                    ->label('Alamat')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('industry')
+                    ->label('Bidang Industri')
                     ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -75,6 +82,7 @@ class PartnerResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

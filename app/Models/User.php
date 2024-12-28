@@ -59,4 +59,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Achievement::class);
     }
+    
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function jobfairs(): HasMany
+    {
+        return $this->hasMany(Jobfair::class);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Templates;
 
 use App\Models\School;
+use App\Models\Weblink;
 use Livewire\Component;
 
 class Header extends Component
@@ -20,6 +21,7 @@ class Header extends Component
     {
         return view('livewire.templates.header', [
             'school' => School::select('name', 'logo', 'alias')->first(),
+            'webLinks' => Weblink::all(),
         ]);
     }
 }

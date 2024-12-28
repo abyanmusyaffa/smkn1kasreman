@@ -8,6 +8,7 @@ class AsideArticle extends Component
 {
     public $articles;
     public $achievements;
+    public $jobfairs;
 
     public function render()
     {

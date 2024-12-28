@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TestimonialResource\Pages;
-use App\Filament\Resources\TestimonialResource\RelationManagers;
-use App\Models\Testimonial;
+use App\Filament\Resources\WeblinkResource\Pages;
+use App\Filament\Resources\WeblinkResource\RelationManagers;
+use App\Models\Weblink;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,28 +13,25 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TestimonialResource extends Resource
+class WeblinkResource extends Resource
 {
-    protected static ?string $model = Testimonial::class;
-    protected static ?string $modelLabel = 'Testimoni Alumni';
-    protected static ?string $pluralModelLabel = 'Testimoni Alumni';
+    protected static ?string $model = Weblink::class;
+    protected static ?string $modelLabel = 'Web Link';
+    protected static ?string $pluralModelLabel = 'Web Link';
 
-    protected static ?string $navigationIcon = 'fas-star-half-alt';
+    protected static ?string $navigationIcon = 'fas-link';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('alumni_id')
+                Forms\Components\TextInput::make('title')
                     ->required()
-                    ->numeric(),
-                Forms\Components\Textarea::make('content')
-                    ->maxLength(400)
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('url')
+                    ->url()
                     ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('rating')
-                    ->required()
-                    ->numeric(),
+                    ->maxLength(255),
             ]);
     }
 
@@ -42,11 +39,10 @@ class TestimonialResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('alumnis.name')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('rating')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('url')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -79,9 +75,9 @@ class TestimonialResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTestimonials::route('/'),
-            'create' => Pages\CreateTestimonial::route('/create'),
-            'edit' => Pages\EditTestimonial::route('/{record}/edit'),
+            'index' => Pages\ListWeblinks::route('/'),
+            'create' => Pages\CreateWeblink::route('/create'),
+            'edit' => Pages\EditWeblink::route('/{record}/edit'),
         ];
     }
 }

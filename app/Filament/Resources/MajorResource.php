@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MajorResource extends Resource
 {
     protected static ?string $model = Major::class;
-
-    protected static ?string $navigationLabel = 'Konsentrasi Keahlian';
+    protected static ?string $modelLabel = 'Konsentrasi Keahlian';
+    protected static ?string $pluralModelLabel = 'Konsentrasi Keahlian';
 
     protected static ?string $navigationIcon = 'fas-graduation-cap';
 
@@ -32,6 +32,7 @@ class MajorResource extends Resource
                     ->required()
                     ->maxLength(3),
                 Forms\Components\RichEditor::make('description')
+                    ->fileAttachmentsDirectory('/attachments-major')
                     ->required()
                     ->toolbarButtons([
                         'attachFiles',
@@ -73,28 +74,40 @@ class MajorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('logo'),
+                Tables\Columns\ImageColumn::make('logo')
+                    ->label(''),
+                Tables\Columns\TextColumn::make('alias')
+                    ->label('')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('alias')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('study_group')
+                    ->label('Jumlah Rombel')
+                    ->suffix(' Rombel')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('study_period')
+                    ->label('Masa Belajar')
+                    ->suffix(' Tahun')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_students')
+                    ->label('Jumlah Siswa')
+                    ->suffix(' Siswa')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -103,6 +116,7 @@ class MajorResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

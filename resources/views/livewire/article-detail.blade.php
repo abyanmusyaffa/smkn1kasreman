@@ -8,8 +8,39 @@
             </a> --}}
             <h2 class="font-semibold text-xl lg:text-4xl text-slate-700 text-center">{{ $articleDetail->title }}</h2>
             <div class="flex gap-2 items-center">
-                <span class="icon-[mdi--calendar-badge] text-sm lg:text-lg text-slate-600"></span>
-                <p class="text-sm lg:text-lg text-slate-600 whitespace-nowrap">{{ \Carbon\Carbon::parse($articleDetail->created_at)->translatedFormat('j F Y') }}</p>
+                <span class="text-sm lg:text-lg
+                    @if($articleDetail->deadline) 
+                        @if(\Carbon\Carbon::now()->greaterThan(\Carbon\Carbon::parse($articleDetail->deadline)))
+                            icon-[mdi--close-circle-outline] text-red-800
+                        @else
+                            icon-[mdi--clock-outline] text-blue-800
+                        @endif
+                    @else
+                        icon-[mdi--calendar-badge] text-slate-600
+                    @endif
+                "></span>
+                <p class="text-sm lg:text-lg whitespace-nowrap
+                    @if($articleDetail->deadline) 
+                        @if(\Carbon\Carbon::now()->greaterThan(\Carbon\Carbon::parse($articleDetail->deadline)))
+                            text-red-800
+                        @else
+                            text-blue-800
+                        @endif
+                    @else
+                        text-slate-600
+                    @endif
+                ">
+                    @if($articleDetail->deadline) 
+                        @if(\Carbon\Carbon::now()->greaterThan(\Carbon\Carbon::parse($articleDetail->deadline)))
+                            Lowongan Ditutup
+                        @else
+                            {{ \Carbon\Carbon::parse($articleDetail->deadline)->diffForHumans() }}
+                        @endif
+                    @else
+                        {{ \Carbon\Carbon::parse($articleDetail->created_at)->translatedFormat('j F Y') }}
+                    @endif
+                    {{-- {{ $articleDetail->deadline ? \Carbon\Carbon::parse($articleDetail->deadline)->diffForHumans() : \Carbon\Carbon::parse($articleDetail->created_at)->translatedFormat('j F Y') }} --}}
+                </p>
             </div>
             <img src="/storage/{{ $articleDetail->photo }}" class="w-5/6 lg:w-auto lg:h-80" alt="">
         </header>
@@ -19,13 +50,22 @@
             </div>
         </div>
         <footer class="flex gap-2">
-            <p class="text-slate-600  lg:text-lg ">Tag: </p>
-            <div class="flex gap-2">
-                @foreach( $articleDetail->tags as $tag )
-                    <p class="text-blue-600 text-sm lg:text-base outline-1 outline whitespace-nowrap outline-blue-600 py-[1px] lg:py-0.5 px-1 lg:px-2 rounded-lg">{{ $tag }}</p>
-                @endforeach
-            </div>
+            @if($articleDetail->tags)
+                <p class="text-slate-600  lg:text-lg ">Tag: </p>
+                <div class="flex gap-2">
+                        @foreach( $articleDetail->tags as $tag )
+                            <p class="text-blue-600 text-sm lg:text-base outline-1 outline whitespace-nowrap outline-blue-600 py-[1px] lg:py-0.5 px-1 lg:px-2 rounded-lg">{{ $tag }}</p>
+                        @endforeach
+                </div>
+            @elseif($articleDetail->industry)
+                <p class="text-slate-600  lg:text-lg ">Bidang Industri: </p>
+                <div class="flex gap-2">
+                        @foreach( $articleDetail->industry as $item )
+                            <p class="text-blue-600 text-sm lg:text-base outline-1 outline whitespace-nowrap outline-blue-600 py-[1px] lg:py-0.5 px-1 lg:px-2 rounded-lg">{{ $item }}</p>
+                        @endforeach
+                </div>
+            @endif
         </footer>
     </article>
-    <livewire:components.aside-article :articles="$articles" :achievements="$achievements" />
+    <livewire:components.aside-article :articles="$articles" :achievements="$achievements" :jobfairs="$jobfairs" />
 </div>

@@ -2,29 +2,27 @@
 
 namespace App\Filament\Resources;
 
-use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Jobfair;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use App\Models\Achievement;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\JobfairResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\AchievementResource\Pages;
-use App\Filament\Resources\AchievementResource\RelationManagers;
+use App\Filament\Resources\JobfairResource\RelationManagers;
 
-class AchievementResource extends Resource
+class JobfairResource extends Resource
 {
-    protected static ?string $model = Achievement::class;
-    protected static ?string $modelLabel = 'Prestasi';
-    protected static ?string $pluralModelLabel = 'Prestasi';
+    protected static ?string $model = Jobfair::class;
+    protected static ?string $modelLabel = 'Bursa Kerja Khusus';
+    protected static ?string $pluralModelLabel = 'Bursa Kerja Khusus';
 
-    protected static ?string $navigationIcon = 'fas-medal';
-    // protected static ?string $navigationLabel = 'Prestasi';
+    protected static ?string $navigationIcon = 'fas-briefcase';
 
     public static function form(Form $form): Form
     {
@@ -36,14 +34,14 @@ class AchievementResource extends Resource
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
                     ->maxLength(255),
                 Forms\Components\Hidden::make('slug'),
-                Forms\Components\TextInput::make('rankings')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\FileUpload::make('photo')
-                    ->required()
-                    ->directory('/achievements'),
+                    ->directory('/jobfair')
+                    ->required(),
+                Forms\Components\DatePicker::make('deadline')
+                    ->required(),
                 Forms\Components\RichEditor::make('content')
-                    ->fileAttachmentsDirectory('/attachments-achievement')
+                    ->fileAttachmentsDirectory('/attachments-jobfair')
+                    ->required()
                     ->toolbarButtons([
                         'attachFiles',
                         'blockquote',
@@ -58,12 +56,9 @@ class AchievementResource extends Resource
                         'strike',
                         'underline',
                         'undo',
-                    ])
-                    ->required(),
-                Forms\Components\TagsInput::make('tags')
+                    ]),
+                Forms\Components\TagsInput::make('industry')
                     ->splitKeys(['Tab'])
-                    ->required(),
-                Forms\Components\Toggle::make('is_pinned')
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
                     ->default(fn () => Auth::id()),
@@ -75,35 +70,29 @@ class AchievementResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Judul')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('rankings')
-                    ->label('Ranking')
-                    ->badge()
-                    ->sortable()
                     ->searchable(),
-                Tables\Columns\ToggleColumn::make('is_pinned')
-                    ->label('Sematkan'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->since()
-                    ->dateTimeTooltip()
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('deadline')
+                    ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('user_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->since()
-                    ->dateTimeTooltip()
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -122,9 +111,9 @@ class AchievementResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAchievements::route('/'),
-            'create' => Pages\CreateAchievement::route('/create'),
-            'edit' => Pages\EditAchievement::route('/{record}/edit'),
+            'index' => Pages\ListJobfairs::route('/'),
+            'create' => Pages\CreateJobfair::route('/create'),
+            'edit' => Pages\EditJobfair::route('/{record}/edit'),
         ];
     }
 }

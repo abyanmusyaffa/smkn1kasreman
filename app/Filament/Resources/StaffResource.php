@@ -16,8 +16,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class StaffResource extends Resource
 {
     protected static ?string $model = Staff::class;
+    protected static ?string $modelLabel = 'GTK';
+    protected static ?string $pluralModelLabel = 'GTK';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fas-chalkboard-teacher';
 
     public static function form(Form $form): Form
     {
@@ -50,18 +52,24 @@ class StaffResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
+                    ->label('Jabatan')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

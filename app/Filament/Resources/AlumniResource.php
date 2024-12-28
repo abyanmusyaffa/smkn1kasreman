@@ -16,8 +16,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AlumniResource extends Resource
 {
     protected static ?string $model = Alumni::class;
+    protected static ?string $modelLabel = 'Alumni';
+    protected static ?string $pluralModelLabel = 'Alumni';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fas-user-graduate';
 
     public static function form(Form $form): Form
     {
@@ -52,34 +54,45 @@ class AlumniResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('photo'),
-                Tables\Columns\TextColumn::make('username')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->label('Nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('class')
+                    ->sortable()
+                    ->label('Tahun Lulus')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('major_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('majors.alias')
+                    ->label('Jurusan')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('position')
+                    ->sortable()
+                    ->label('Pekerjaan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company')
+                    ->sortable()
+                    ->label('Instansi')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),   
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->label('Diperbarui')
+                    ->since()
+                    ->dateTimeTooltip()
+                    ->sortable()        
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('name', 'asc')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

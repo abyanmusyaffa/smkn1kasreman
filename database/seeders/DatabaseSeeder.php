@@ -476,6 +476,20 @@ class DatabaseSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+            [
+                'title' => 'Pengumuman Pembagian Rapor Semester Ganjil',
+                'slug' => 'pengumuman-pembagian-rapor-semester-ganjil',
+                'photo' => 'articles/01JG4766C58EDENG2M8T6D0WXC.png',
+                'content' => '<p>Sehubungan dengan berakhirnya kegiatan belajar mengajar pada semester ganjil tahun ajaran 2024/2025, SMKN 1 Kasreman menginformasikan kepada seluruh siswa dan orang tua/wali mengenai pembagian rapor.</p><h3>1. Jadwal Pembagian Rapor</h3><p>Pembagian rapor semester ganjil akan dilaksanakan pada:</p><ul><li><strong>Tanggal:</strong> 8 Januari 2025</li><li><strong>Waktu:</strong> Pukul 09.00 WIB – 12.00 WIB</li><li><strong>Tempat:</strong> Ruang Kelas masing-masing</li></ul><h3>2. Prosedur Pembagian Rapor</h3><p>Setiap orang tua/wali siswa diminta untuk hadir langsung pada jadwal yang telah ditentukan. Siswa dapat mengambil rapor di kelas yang telah ditunjuk dengan ditemani oleh orang tua/wali.</p><p><strong>Catatan Penting:</strong></p><ul><li>Bagi siswa yang tidak dapat dihadiri oleh orang tua/wali, dapat diwakilkan oleh saudara yang telah disertakan dengan surat kuasa.</li><li>Harap membawa <strong>bukti pembayaran SPP</strong> bulan Desember 2024 sebagai syarat pengambilan rapor.</li></ul><h3>3. Evaluasi dan Tindak Lanjut</h3><p>Pada kesempatan ini, orang tua/wali dapat berdiskusi langsung dengan wali kelas mengenai perkembangan akademik siswa serta rencana tindak lanjut untuk semester berikutnya.</p><p><strong>Agenda Diskusi:</strong></p><ul><li>Evaluasi hasil belajar semester ganjil.</li><li>Pembahasan perkembangan siswa selama satu semester.</li><li>Rencana kegiatan dan persiapan untuk semester genap.</li></ul><p>Kami berharap seluruh siswa dan orang tua/wali dapat memanfaatkan kesempatan ini dengan sebaik-baiknya. Terima kasih atas kerjasama yang baik selama satu semester ini. Mari kita tingkatkan semangat belajar untuk menghadapi semester genap yang akan datang.</p><p>Untuk informasi lebih lanjut, silakan hubungi:</p><ul><li><strong>Wakil Kepala Sekolah Bidang Kesiswaan:</strong> Bapak Ahmad Fauzi</li><li><strong>Kontak:</strong> (0341) 123-4567</li></ul>',
+                'category' => 'announcement',
+                'tags' => json_encode([
+                    "Raport"
+                ]),
+                'is_pinned' => false,
+                'user_id' => '1',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ]);
 
         DB::table('facilities')->insert([

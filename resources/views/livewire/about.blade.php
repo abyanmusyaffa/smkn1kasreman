@@ -39,7 +39,7 @@
           <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--graduation-cap-outline] text-5xl lg:text-[80px]"></span>
             <p class="text-5xl font-semibold">{{ $totalMajors }}</p>
-            <p class="text-sm lg:text-lg font-medium">Konsentrsi Keahlian</p>
+            <p class="text-sm lg:text-lg font-medium">Konsentrasi Keahlian</p>
           </div>
           <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--tennis-ball-outline] text-5xl lg:text-[80px]"></span>

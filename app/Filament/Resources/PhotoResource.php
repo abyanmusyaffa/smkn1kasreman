@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PhotoResource extends Resource
 {
     protected static ?string $model = Photo::class;
-
-    protected static ?string $navigationLabel = 'Galeri';
+    protected static ?string $modelLabel = 'Galeri';
+    protected static ?string $pluralModelLabel = 'Galeri';
 
     protected static ?string $navigationIcon = 'fas-image';
 
@@ -43,15 +43,21 @@ class PhotoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Tipe'),
                 Tables\Columns\ImageColumn::make('photo')
+                    ->label('Foto')
                     ->size(100),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

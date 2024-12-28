@@ -38,7 +38,7 @@
               <div class="h-[1px] w-full bg-slate-200"></div>
             </a>
             <a href="/alumni" wire:navigate class="flex flex-col gap-1 group">
-              <p class="text-sm {{ $title === 'Cerita Alumni' ? 'text-blue-500' : 'text-slate-500' }} group-hover:text-blue-500">Alumni</p>
+              <p class="text-sm {{ $title === 'Cerita Alumni' ? 'text-blue-500' : 'text-slate-500' }} group-hover:text-blue-500">Cerita Alumni</p>
               <div class="h-[1px] w-full bg-slate-200"></div>
             </a>
             <a href="/download" wire:navigate class="flex flex-col gap-1 group">
@@ -91,18 +91,12 @@
           <div class="w-full h-0.5 bg-transparent"></div>
           <!-- Dropdown -->
           <div class="flex-col px-4 py-2 gap-2 bg-slate-50 rounded-lg min-w-32 absolute top-[28px] hidden group-hover/dropdown:flex transition-all">
-            <a href="" class="flex flex-col gap-1 group">
-              <p class="text-sm text-slate-500 group-hover:text-blue-500">Tracer Study</p>
-              <div class="h-[1px] w-full bg-slate-200"></div>
-            </a>
-            <a href="" class="flex flex-col gap-1 group">
-              <p class="text-sm text-slate-500 group-hover:text-blue-500">E-Raport</p>
-              <div class="h-[1px] w-full bg-slate-200"></div>
-            </a>
-            <a href="" class="flex flex-col gap-1 group">
-              <p class="text-sm text-slate-500 group-hover:text-blue-500">E-Voting</p>
-              <div class="h-[1px] w-full bg-slate-200"></div>
-            </a>
+            @foreach($webLinks as $weblink)
+              <a href="{{ $weblink->url }}" class="flex flex-col gap-1 group">
+                <p class="text-sm text-slate-500 group-hover:text-blue-500">{{ $weblink->title }}</p>
+                <div class="h-[1px] w-full bg-slate-200"></div>
+              </a>
+            @endforeach
           </div>
           <!-- Dropdown -->
         </div>
@@ -135,7 +129,7 @@
             <a href="/staff" wire:navigate class="text-slate-50 whitespace-nowrap">GTK</a>
             <a href="/achievement" wire:navigate class="text-slate-50 whitespace-nowrap">Prestasi</a>
             <a href="/partner" wire:navigate class="text-slate-50 whitespace-nowrap">Mitra DU/DI</a>
-            <a href="/alumni" wire:navigate class="text-slate-50 whitespace-nowrap">Alumni</a>
+            <a href="/alumni" wire:navigate class="text-slate-50 whitespace-nowrap">Cerita Alumni</a>
             <a href="/download" wire:navigate class="text-slate-50 whitespace-nowrap">Download Area</a>
           </div>
           <!-- dropdown -->
@@ -167,9 +161,9 @@
 
           <!-- dropdown -->
           <div class="flex-col w-full gap-2 rounded-lg items-center hidden peer-checked:flex transition-all py-2" id="dropdownMenu">
-            <a href="" class="text-slate-50 whitespace-nowrap">Tracer Study</a>
-            <a href="" class="text-slate-50 whitespace-nowrap">E-Raports</a>
-            <a href="" class="text-slate-50 whitespace-nowrap">E-Voting</a>
+            @foreach($webLinks as $weblink)
+              <a href="{{ $weblink->url }}" class="text-slate-50 whitespace-nowrap">{{ $weblink->title }}</a>
+            @endforeach
           </div>
           <!-- dropdown -->
         </div>

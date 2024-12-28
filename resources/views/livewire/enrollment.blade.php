@@ -7,7 +7,7 @@
 
     <!-- all announ -->
     <div class="flex flex-col gap-4 w-full justify-center">
-      <livewire:components.title-left text="Informasi PPDB" />
+      <livewire:components.title-left text="Informasi " span="PPDB" />
 
       <livewire:components.paginate :onEnrollments="true" />
     </div>
