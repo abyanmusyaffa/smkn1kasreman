@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('name');
-            $table->string('photo')->default('/default/alumni.svg');
+            $table->string('photo')->nullable();
             $table->string('class');
             $table->foreignId('major_id')->constrained()->cascadeOnDelete();
             $table->string('position')->nullable();

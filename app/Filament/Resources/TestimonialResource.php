@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TestimonialResource\Pages;
-use App\Filament\Resources\TestimonialResource\RelationManagers;
-use App\Models\Testimonial;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Testimonial;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
+use Filament\Support\Enums\ActionSize;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TestimonialResource\Pages;
+use App\Filament\Resources\TestimonialResource\RelationManagers;
 
 class TestimonialResource extends Resource
 {
@@ -26,16 +29,39 @@ class TestimonialResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('alumni_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Textarea::make('content')
-                    ->maxLength(400)
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('rating')
-                    ->required()
-                    ->numeric(),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\Select::make('alumni_id')
+                        ->native(false)
+                        ->relationship(name: 'alumnis', titleAttribute: 'name')
+                        ->label('Alumni')
+                        ->required()
+                        ->searchable()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 9,
+                        ]),
+                    Forms\Components\TextInput::make('rating')
+                        ->required()
+                        ->numeric()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 3,
+                        ]),
+                    Forms\Components\Textarea::make('content')
+                        ->label('Isi')
+                        ->rows(10)
+                        ->maxLength(400)
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                ])
             ]);
     }
 
@@ -76,8 +102,11 @@ class TestimonialResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->size(ActionSize::Large)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

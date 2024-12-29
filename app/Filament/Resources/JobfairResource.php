@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Jobfair;
@@ -11,6 +12,9 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Section;
+use Filament\Support\Enums\ActionSize;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\JobfairResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -29,41 +33,73 @@ class JobfairResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->label('Judul')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                    ->maxLength(255),
-                Forms\Components\Hidden::make('slug'),
-                Forms\Components\FileUpload::make('photo')
-                    ->directory('/jobfair')
-                    ->required(),
-                Forms\Components\DatePicker::make('deadline')
-                    ->required(),
-                Forms\Components\RichEditor::make('content')
-                    ->fileAttachmentsDirectory('/attachments-jobfair')
-                    ->required()
-                    ->toolbarButtons([
-                        'attachFiles',
-                        'blockquote',
-                        'bold',
-                        'bulletList',
-                        'h2',
-                        'h3',
-                        'italic',
-                        'link',
-                        'orderedList',
-                        'redo',
-                        'strike',
-                        'underline',
-                        'undo',
-                    ]),
-                Forms\Components\TagsInput::make('industry')
-                    ->splitKeys(['Tab'])
-                    ->required(),
-                Forms\Components\Hidden::make('user_id')
-                    ->default(fn () => Auth::id()),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('title')
+                        ->label('Judul')
+                        ->required()
+                        ->live(onBlur: true)
+                        ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\Hidden::make('slug'),
+                    Forms\Components\FileUpload::make('photo')
+                        ->label('Foto')
+                        ->image()
+                        ->directory('/jobfair')
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\RichEditor::make('content')
+                        ->label('Isi')
+                        ->fileAttachmentsDirectory('/attachments-jobfair')
+                        ->required()
+                        ->toolbarButtons([
+                            'attachFiles',
+                            'blockquote',
+                            'bold',
+                            'bulletList',
+                            'h2',
+                            'h3',
+                            'italic',
+                            'link',
+                            'orderedList',
+                            'redo',
+                            'strike',
+                            'underline',
+                            'undo',
+                        ])
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\TagsInput::make('industry')
+                        ->label('Bidang Industri')
+                        ->splitKeys(['Tab'])
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 8,
+                        ]),
+                    Forms\Components\DatePicker::make('deadline')
+                        ->label('Tenggat Waktu')
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 4,
+                        ]),
+                    Forms\Components\Hidden::make('user_id')
+                        ->default(fn () => Auth::id()),
+                ])
             ]);
     }
 
@@ -77,9 +113,14 @@ class JobfairResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deadline')
+                    ->label('Tenggat Waktu')
                     ->badge()
-                    ->color('warning')
-                    ->since()
+                    ->color(function ($state) {
+                        return Carbon::parse($state)->isPast() ? 'danger' : 'warning';
+                    })
+                    ->formatStateUsing(function ($state) {
+                        return Carbon::parse($state)->isPast() ? 'Lowongan Ditutup' : Carbon::parse($state)->diffForHumans();
+                    })
                     ->dateTimeTooltip()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -104,9 +145,11 @@ class JobfairResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->size(ActionSize::Large)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

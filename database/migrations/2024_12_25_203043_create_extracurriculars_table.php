@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('extracurriculars', function (Blueprint $table) {
             $table->id();
-            $table->string('logo')->default('/default/extracurricular.svg');
+            $table->string('logo')->nullable();
             $table->string('name');
             $table->string('url')->nullable();
             $table->timestamps();

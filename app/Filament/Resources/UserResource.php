@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
 {
@@ -24,19 +26,46 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('username')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('roles')
-                    ->relationship(name: 'roles', titleAttribute: 'name')
-                    ->required(),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Nama')
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 8,
+                        ]),
+                    Forms\Components\Select::make('roles')
+                        ->label('Peran')
+                        ->native(false)
+                        ->relationship(name: 'roles', titleAttribute: 'name')
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 4,
+                        ]),
+                    Forms\Components\TextInput::make('username')
+                        ->unique()
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                    Forms\Components\TextInput::make('password')
+                        ->password()
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                ])
             ]);
     }
 
@@ -52,15 +81,18 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label('Peran')
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'super_admin' => 'Super Admin',
-                        'admin' => 'Admin',
-                    })
+                    ->formatStateUsing(fn ($state): string => Str::headline($state))
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'super_admin' => 'info',
-                        'admin' => 'success',
+                    ->color(function (string $state): string {
+                        $colors = ['success', 'info', 'danger'];
+
+                        $index = crc32($state) % count($colors);
+                        return $colors[$index];
                     }),
+                    // ->color(fn (string $state): string => match ($state) {
+                    //     'admin' => 'info',
+                    //     'author' => 'success',
+                    // }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->since()

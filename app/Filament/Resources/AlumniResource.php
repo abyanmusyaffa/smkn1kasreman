@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AlumniResource\Pages;
-use App\Filament\Resources\AlumniResource\RelationManagers;
-use App\Models\Alumni;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Alumni;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
+use Filament\Support\Enums\ActionSize;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\AlumniResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\AlumniResource\RelationManagers;
 
 class AlumniResource extends Resource
 {
@@ -26,28 +29,84 @@ class AlumniResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('username')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('photo')
-                    ->required()
-                    ->default('/default/alumni.jpg'),
-                Forms\Components\TextInput::make('class')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('major_id')
-                    ->required(),
-                Forms\Components\TextInput::make('position')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('company')
-                    ->maxLength(255),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('username')
+                        ->unique()
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                    Forms\Components\TextInput::make('password')
+                        ->password()
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                ]),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Name')
+                        ->required()
+                        ->maxLength(25)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\TextInput::make('class')
+                        ->label('Tahun Lulus')
+                        ->required()
+                        ->numeric()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                    Forms\Components\Select::make('major_id')
+                        ->label('Jurusan')
+                        ->native(false)
+                        ->relationship(name: 'majors', titleAttribute: 'name')
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                    Forms\Components\FileUpload::make('photo')
+                        ->image()
+                        ->label('Foto')
+                        ->default('/default/alumni.jpg')
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\TextInput::make('position')
+                        ->label('Pekerjaan')
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                    Forms\Components\TextInput::make('company')
+                        ->label('Instansi')
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                ])
             ]);
     }
 
@@ -66,7 +125,12 @@ class AlumniResource extends Resource
                 Tables\Columns\TextColumn::make('majors.alias')
                     ->label('Jurusan')
                     ->badge()
-                    ->color('info')
+                    ->color(fn (string $state): string => match ($state) {
+                        'TKJ' => 'danger',
+                        'AKL' => 'warning',
+                        'KL' => 'success',
+                        'DPB' => 'info',
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('position')
                     ->sortable()
@@ -94,8 +158,11 @@ class AlumniResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->size(ActionSize::Large)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

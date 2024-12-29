@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PhotoResource\Pages;
-use App\Filament\Resources\PhotoResource\RelationManagers;
-use App\Models\Photo;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Photo;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
+use Filament\Support\Enums\FontWeight;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PhotoResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PhotoResource\RelationManagers;
 
 class PhotoResource extends Resource
 {
@@ -26,17 +28,34 @@ class PhotoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('photo')
-                    ->multiple()
-                    ->directory('/photos')
-                    ->required(),
-                Forms\Components\Select::make('type')
-                    ->options([
-                        'hero' => 'Hero',
-                        'gallery' => 'Galeri',
-                        ])
-                    ->required()
-                    ->native(false),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\FileUpload::make('photo')
+                        ->image()
+                        ->label(function (callable $get) {
+                            return $get('type') === 'hero' ? 'Hero' : 'Galeri Skanka';
+                        })
+                        ->multiple()
+                        ->directory('/photos')
+                        ->required()
+                        ->minFiles(function (callable $get) {
+                            return $get('type') === 'hero' ? 3 : 5; 
+                        })
+                        ->maxFiles(function (callable $get) {
+                            return $get('type') === 'hero' ? 5 : 5;
+                        })
+                        ->panelLayout('grid')
+                        ->reorderable()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\Hidden::make('type'),
+                ])
             ]);
     }
 
@@ -49,27 +68,29 @@ class PhotoResource extends Resource
                         'hero' => 'Hero',
                         'gallery' => 'Galeri Skanka',
                     })
-                    ->label('Tipe'),
+                    ->label('')
+                    ->weight(FontWeight::Bold),
                 Tables\Columns\ImageColumn::make('photo')
-                    ->label('Foto')
+                    ->label('')
                     ->circular()
                     ->stacked()
                     ->limit(3)
                     ->limitedRemainingText()
                     ->size(100),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->since()
-                    ->dateTimeTooltip()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->since()
-                    ->dateTimeTooltip()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->label('Dibuat')
+                //     ->since()
+                //     ->dateTimeTooltip()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->label('Diperbarui')
+                //     ->since()
+                //     ->dateTimeTooltip()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->paginated(false)
             ->filters([
                 //
             ])

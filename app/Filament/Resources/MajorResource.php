@@ -132,7 +132,12 @@ class MajorResource extends Resource
                     ->label(''),
                 Tables\Columns\TextColumn::make('alias')
                     ->badge()
-                    ->color('info')
+                    ->color(fn (string $state): string => match ($state) {
+                        'TKJ' => 'danger',
+                        'AKL' => 'warning',
+                        'KL' => 'success',
+                        'DPB' => 'info',
+                    })
                     ->label('')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
