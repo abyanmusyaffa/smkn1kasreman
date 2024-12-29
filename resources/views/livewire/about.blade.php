@@ -5,7 +5,7 @@
         <livewire:components.card-staff :photo="$headMaster->photo" :name="$headMaster->name" :role="$headMaster->role" />
       </figure>
       <figcaption>
-        <p class="text-sm lg:text-base italic text-salte-700 text-center">“{{ $school->welcome_text }}”</p>
+        <p class="text-sm lg:text-base italic text-slate-700 text-center">“{{ $school->welcome_text }}”</p>
       </figcaption>
      </article>
     <!-- welcome -->
@@ -19,7 +19,7 @@
           <img src="/storage/{{ $school->logo }}" class="h-12 lg:h-28" alt="">
           <img src="/img/svg/vokasi.svg" class="h-8 lg:h-16" alt="">
         </figure>
-        <p class="text-center lg:text-xl text-slate-700">{{ $school->description }}</p>
+        <article class="text-justify lg:text-xl text-slate-700 prose max-w-none">{!! $school->description !!}</article>
         <div class="grid grid-cols-2 lg:grid-cols-5 gap-2 w-full">
           <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--people-outline] text-5xl lg:text-[80px]"></span>

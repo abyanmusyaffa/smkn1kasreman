@@ -22,15 +22,37 @@ class Home extends Component
         $this->dispatch('title', title: 'Beranda');
     }
     
+    public function getFirstParagraph()
+    {
+        $description = School::value('description');
+
+        if (empty($description)) {
+            return '';
+        }
+
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'));
+        libxml_clear_errors();
+
+        $paragraphs = $dom->getElementsByTagName('p');
+        if ($paragraphs->length > 0) {
+            return trim($paragraphs->item(0)->nodeValue);
+        }
+
+        return '';
+    }
+
     public function render()
     {
         return view('livewire.home', [
             'majors' => Major::select('id', 'name', 'alias', 'logo')->get(),
             'school' => School::first(),
+            'summary' => $this->getFirstParagraph(),
             'video_id' => $this->getYoutubeVideoId(School::first()->url_video_profile),
             'heros' => Photo::where('type', 'hero')->value('photo'),
             'galleries' => Photo::where('type', 'gallery')->value('photo'),
-            'partners' => Partner::select('logo')->get(),
+            'partners' => Partner::whereNotNull('logo')->pluck('logo'),
             'achievements' => Achievement::orderBy('created_at', 'desc')->take(4)->get(),
             'testimonials' => Testimonial::with('alumnis')->take(6)->get(),
             'articles' => Article::orderBy('created_at', 'desc')->take(4)->get(),

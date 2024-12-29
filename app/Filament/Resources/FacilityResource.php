@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FacilityResource\Pages;
-use App\Filament\Resources\FacilityResource\RelationManagers;
-use App\Models\Facility;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Facility;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\FacilityResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\FacilityResource\RelationManagers;
 
 class FacilityResource extends Resource
 {
@@ -26,12 +27,30 @@ class FacilityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('photo')
-                    ->required()
-                    ->directory('/facility'),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Name')
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\FileUpload::make('photo')
+                        ->label('Foto')
+                        ->image()
+                        ->required()
+                        ->directory('/facility')
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                ])
             ]);
     }
 

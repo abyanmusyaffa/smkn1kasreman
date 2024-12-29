@@ -73,6 +73,7 @@ class JobfairResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
+                    ->wrap()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deadline')
@@ -93,12 +94,17 @@ class JobfairResource extends Resource
                     ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('users.name')
+                    ->label('Author')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

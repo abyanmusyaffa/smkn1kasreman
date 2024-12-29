@@ -188,9 +188,18 @@ class About extends Page implements HasForms
                             'default' => 1,
                             'lg' => 12,
                         ]),
-                    Textarea::make('description')
-                        ->rows(10)
+                    RichEditor::make('description')
                         ->label('Profil Sekolah')
+                        ->toolbarButtons([
+                            'bold',
+                            'bulletList',
+                            'italic',
+                            'orderedList',
+                            'redo',
+                            'strike',
+                            'underline',
+                            'undo',
+                        ])
                         ->required()
                         ->columnSpan([
                             'default' => 2,
@@ -220,7 +229,7 @@ class About extends Page implements HasForms
     {
         return [
             Action::make('save')
-                ->label('Save Changes')
+                ->label('Simpan')
                 ->submit('save'),
         ];
     }
@@ -237,7 +246,7 @@ class About extends Page implements HasForms
     
         Notification::make()
             ->success()
-            ->title('Saved')
+            ->title('Data tersimpan')
             ->send();
     }
 

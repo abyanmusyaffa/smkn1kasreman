@@ -1,4 +1,4 @@
-{{-- @dd($testimonials) --}}
+{{-- @dd($partners) --}}
 <div class="w-full flex flex-col gap-9 lg:gap-12 px-4 pt-20 pb-9 lg:px-16 2xl:px-36 lg:pt-[120px] lg:pb-12 bg-slate-100">
     <!-- hero -->
     <figure class="relative flex w-full">
@@ -27,7 +27,7 @@
         <img src="/img/svg/vokasi.svg" class="h-12 lg:h-24" alt="vokasi" />
       </figure>
       <p class="lg:text-xl text-slate-700 line-clamp-[15] lg:line-clamp-5">
-        {!! $school->description !!}
+        {{ $summary  }}
       </p>
       <livewire:components.more-button text="Selengkapnya" href="/about" />
       <!-- running partners -->
@@ -39,12 +39,12 @@
         <div class="flex w-full overflow-x-hidden">
           <div class="flex *:object-contain *:h-12 gap-9 lg:gap-12 items-center flex-shrink-0 animate-partners-scroll pe-9 lg:pe-12">
             @foreach($partners as $partner)
-            <img src="/storage/{{ $partner->logo }}" alt="" />
+            <img src="/storage/{{ $partner }}" alt="" />
             @endforeach
           </div>
           <div class="flex *:object-contain *:h-12 gap-9 lg:gap-12 items-center flex-shrink-0 animate-partners-scroll pe-9 lg:pe-12">
             @foreach($partners as $partner)
-            <img src="/storage/{{ $partner->logo }}" alt="" />
+            <img src="/storage/{{ $partner }}" alt="" />
             @endforeach
           </div>
         </div>

@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MajorResource\Pages;
-use App\Filament\Resources\MajorResource\RelationManagers;
-use App\Models\Major;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Major;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\MajorResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\MajorResource\RelationManagers;
 
 class MajorResource extends Resource
 {
@@ -26,48 +27,100 @@ class MajorResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('alias')
-                    ->required()
-                    ->maxLength(3),
-                Forms\Components\RichEditor::make('description')
-                    ->fileAttachmentsDirectory('/attachments-major')
-                    ->required()
-                    ->toolbarButtons([
-                        'attachFiles',
-                        'blockquote',
-                        'bold',
-                        'bulletList',
-                        'h2',
-                        'h3',
-                        'italic',
-                        'link',
-                        'orderedList',
-                        'redo',
-                        'strike',
-                        'underline',
-                        'undo',
-                    ]),
-                Forms\Components\TextInput::make('study_group')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('study_period')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('total_students')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\FileUpload::make('logo')
-                    ->directory('/major/logo')
-                    ->image()
-                    ->required(),
-                Forms\Components\FileUpload::make('photo')
-                    ->multiple()
-                    ->directory('/major/cover')
-                    ->image()
-                    ->required(),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\FileUpload::make('logo')
+                        ->directory('/major/logo')
+                        ->image()
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\TextInput::make('name')
+                        ->label('Nama')
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 9,
+                        ]),
+                    Forms\Components\TextInput::make('alias')
+                        ->required()
+                        ->maxLength(5)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 3,
+                        ]),
+                    Forms\Components\TextInput::make('study_group')
+                        ->label('Jumlah Rombel')
+                        ->suffix('Rombel')
+                        ->required()
+                        ->numeric()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 4,
+                        ]),
+                    Forms\Components\TextInput::make('study_period')
+                        ->label('Masa Belajar')
+                        ->suffix('Tahun')
+                        ->required()
+                        ->numeric()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 4,
+                        ]),
+                    Forms\Components\TextInput::make('total_students')
+                        ->label('Jumlah Siswa')
+                        ->suffix('Siswa')
+                        ->required()
+                        ->numeric()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 4,
+                        ]),
+                    Forms\Components\RichEditor::make('description')
+                        ->label('Deskripsi')
+                        ->fileAttachmentsDirectory('/attachments-major')
+                        ->required()
+                        ->toolbarButtons([
+                            'attachFiles',
+                            'blockquote',
+                            'bold',
+                            'bulletList',
+                            'h2',
+                            'h3',
+                            'italic',
+                            'link',
+                            'orderedList',
+                            'redo',
+                            'strike',
+                            'underline',
+                            'undo',
+                        ])
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\FileUpload::make('photo')
+                        ->label('Foto')
+                        ->multiple()
+                        ->minFiles(2)
+                        ->maxFiles(2)
+                        ->directory('/major/cover')
+                        ->image()
+                        ->panelLayout('grid')
+                        ->reorderable()
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                ])
             ]);
     }
 

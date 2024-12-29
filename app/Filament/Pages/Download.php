@@ -94,7 +94,7 @@ class Download extends Page implements HasForms
     
         Notification::make()
             ->success()
-            ->title('Saved')
+            ->title('Simpan')
             ->send();
     }
 

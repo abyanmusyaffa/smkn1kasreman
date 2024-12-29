@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StaffResource\Pages;
-use App\Filament\Resources\StaffResource\RelationManagers;
-use App\Models\Staff;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Staff;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
+use Filament\Support\Enums\ActionSize;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\StaffResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\StaffResource\RelationManagers;
 
 class StaffResource extends Resource
 {
@@ -26,26 +29,54 @@ class StaffResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(21),
-                Forms\Components\FileUpload::make('photo')
-                    ->required()
-                    ->directory('/staff')
-                    ->default('/default/staff-male.svg'),
-                Forms\Components\TextInput::make('role')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('category')
-                    ->options([
-                        'head-master' => 'Kepala Sekolah',
-                        'vice-master' => 'Wakil Kepala Sekolah',
-                        'head-of-major' => 'Kakomli',
-                        'teacher' => 'Guru',
-                        'staff' => 'Tenaga Kependidikan',
-                    ])
-                    ->native(false)
-                    ->required(),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Nama')
+                        ->required()
+                        ->maxLength(21)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\FileUpload::make('photo')
+                        ->label('Foto')
+                        ->image()
+                        ->required()
+                        ->directory('/staff')
+                        ->default('/default/staff-male.svg')
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\TextInput::make('role')
+                        ->label('Jabatan')
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                    Forms\Components\Select::make('category')
+                        ->label('Kategori')
+                        ->options([
+                            'head-master' => 'Kepala Sekolah',
+                            'vice-master' => 'Wakil Kepala Sekolah',
+                            'head-of-major' => 'Kakomli',
+                            'teacher' => 'Guru',
+                            'staff' => 'Tenaga Kependidikan',
+                        ])
+                        ->native(false)
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                ])
             ]);
     }
 
@@ -79,8 +110,11 @@ class StaffResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->size(ActionSize::Large)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

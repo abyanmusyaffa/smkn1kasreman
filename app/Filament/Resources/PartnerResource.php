@@ -2,16 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PartnerResource\Pages;
-use App\Filament\Resources\PartnerResource\RelationManagers;
-use App\Models\Partner;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Partner;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
+use Filament\Support\Enums\ActionSize;
+use Filament\Support\Enums\FontWeight;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PartnerResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PartnerResource\RelationManagers;
 
 class PartnerResource extends Resource
 {
@@ -26,27 +30,51 @@ class PartnerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nama Mitra')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('logo')
-                    ->label('Logo Mitra')
-                    ->directory('/partners'),
-                Forms\Components\Textarea::make('address')
-                    ->label('Alamat Mitra')
-                    ->maxLength(255),
-                Forms\Components\TagsInput::make('industry')
-                    ->label('Bidang Industri')
-                    ->splitKeys(['Tab'])
-                    ->suggestions([
-                        'Teknologi Informasi',
-                        'Perbankan',
-                        'Tekstil',
-                        'Akuntansi',
-                        'FnB',
-                    ])
-                    ->required(),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Nama')
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\FileUpload::make('logo')
+                        ->label('Logo')
+                        ->image()
+                        ->directory('/partners')
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\Textarea::make('address')
+                        ->label('Alamat')
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\TagsInput::make('industry')
+                        ->label('Bidang Industri')
+                        ->splitKeys(['Tab'])
+                        ->suggestions([
+                            'Teknologi Informasi',
+                            'Perbankan',
+                            'Tekstil',
+                            'Akuntansi',
+                            'FnB',
+                        ])
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 6,
+                        ]),
+                ])
             ]);
     }
 
@@ -55,6 +83,8 @@ class PartnerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->weight(FontWeight::Bold)
+                    ->wrap()
                     ->label('Nama')
                     ->sortable()
                     ->searchable(),
@@ -85,8 +115,11 @@ class PartnerResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->size(ActionSize::Large)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

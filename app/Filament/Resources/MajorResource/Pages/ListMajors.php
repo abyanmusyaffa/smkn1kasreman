@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\MajorResource\Pages;
 
-use App\Filament\Resources\MajorResource;
+use App\Models\Major;
 use Filament\Actions;
+use App\Filament\Resources\MajorResource;
 use Filament\Resources\Pages\ListRecords;
 
 class ListMajors extends ListRecords
@@ -12,8 +13,14 @@ class ListMajors extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
+        $majorsCount = Major::count();
+
+        return $majorsCount < 4 ? [
             Actions\CreateAction::make(),
-        ];
+        ] : [];
+
+        // return [
+        //     Actions\CreateAction::make(),
+        // ];
     }
 }

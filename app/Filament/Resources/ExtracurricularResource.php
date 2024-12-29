@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ExtracurricularResource\Pages;
-use App\Filament\Resources\ExtracurricularResource\RelationManagers;
-use App\Models\Extracurricular;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Extracurricular;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ExtracurricularResource\Pages;
+use App\Filament\Resources\ExtracurricularResource\RelationManagers;
 
 class ExtracurricularResource extends Resource
 {
@@ -26,15 +27,37 @@ class ExtracurricularResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('logo')
-                    ->directory('/extracurricular')
-                    ->default('/default/extracurricular.svg'),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('url')
-                    ->url()
-                    ->maxLength(255),
+                Section::make()
+                ->columns([
+                    'default' => 2,
+                    'lg' => 12,
+                ])
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Nama')
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\FileUpload::make('logo')
+                        ->image()
+                        ->directory('/extracurricular')
+                        ->default('/default/extracurricular.svg')
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    Forms\Components\TextInput::make('url')
+                        ->label('Link Sosial Media / Website')
+                        ->url()
+                        ->maxLength(255)
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
+                    ])
             ]);
     }
 
@@ -46,6 +69,7 @@ class ExtracurricularResource extends Resource
                     ->label(''),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
