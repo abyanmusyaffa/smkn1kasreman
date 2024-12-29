@@ -19,6 +19,7 @@ class ExtracurricularResource extends Resource
     protected static ?string $modelLabel = 'Ekstrakurikuler';
     protected static ?string $pluralModelLabel = 'Ekstrakurikuler';
 
+    protected static ?string $navigationGroup = 'Sekolah';
     protected static ?string $navigationIcon = 'fas-baseball-ball';
 
     public static function form(Form $form): Form
@@ -31,7 +32,7 @@ class ExtracurricularResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('link')
+                Forms\Components\TextInput::make('url')
                     ->url()
                     ->maxLength(255),
             ]);
@@ -59,6 +60,7 @@ class ExtracurricularResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('name')
             ->filters([
                 //
             ])

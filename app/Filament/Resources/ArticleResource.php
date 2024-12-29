@@ -29,6 +29,7 @@ class ArticleResource extends Resource
     protected static ?string $modelLabel = 'Artikel';
     protected static ?string $pluralModelLabel = 'Artikel';
 
+    protected static ?string $navigationGroup = 'Informasi';
     protected static ?string $navigationIcon = 'fas-newspaper';
 
     public static function form(Form $form): Form

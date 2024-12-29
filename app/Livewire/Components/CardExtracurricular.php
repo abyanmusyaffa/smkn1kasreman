@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class CardExtracurricular extends Component
 {
-    public $link;
+    public $url;
     public $logo;
     public $name;
 

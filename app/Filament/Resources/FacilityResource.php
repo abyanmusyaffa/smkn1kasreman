@@ -19,6 +19,7 @@ class FacilityResource extends Resource
     protected static ?string $modelLabel = 'Sarana Prasarana';
     protected static ?string $pluralModelLabel = 'Sarana Prasarana';
 
+    protected static ?string $navigationGroup = 'Sekolah';
     protected static ?string $navigationIcon = 'fas-city';
 
     public static function form(Form $form): Form
@@ -55,6 +56,7 @@ class FacilityResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('name')
             ->filters([
                 //
             ])

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StaffResource\Pages;
-use App\Filament\Resources\StaffResource\RelationManagers;
-use App\Models\Staff;
+use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,14 +13,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StaffResource extends Resource
+class UserResource extends Resource
 {
-    protected static ?string $model = Staff::class;
-    protected static ?string $modelLabel = 'GTK';
-    protected static ?string $pluralModelLabel = 'GTK';
+    protected static ?string $model = User::class;
+    protected static ?string $navigationGroup = 'Manajemen User';
 
-    protected static ?string $navigationGroup = 'Sekolah';
-    protected static ?string $navigationIcon = 'fas-chalkboard-teacher';
+    protected static ?string $navigationIcon = 'fas-users';
 
     public static function form(Form $form): Form
     {
@@ -28,23 +26,16 @@ class StaffResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(21),
-                Forms\Components\FileUpload::make('photo')
-                    ->required()
-                    ->directory('/staff')
-                    ->default('/default/staff-male.svg'),
-                Forms\Components\TextInput::make('role')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('username')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('category')
-                    ->options([
-                        'head-master' => 'Kepala Sekolah',
-                        'vice-master' => 'Wakil Kepala Sekolah',
-                        'head-of-major' => 'Kakomli',
-                        'teacher' => 'Guru',
-                        'staff' => 'Tenaga Kependidikan',
-                    ])
-                    ->native(false)
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Select::make('roles')
+                    ->relationship(name: 'roles', titleAttribute: 'name')
                     ->required(),
             ]);
     }
@@ -57,10 +48,19 @@ class StaffResource extends Resource
                     ->label('Nama')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('role')
-                    ->label('Jabatan')
-                    ->sortable()
+                Tables\Columns\TextColumn::make('username')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->label('Peran')
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'super_admin' => 'Super Admin',
+                        'admin' => 'Admin',
+                    })
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'super_admin' => 'info',
+                        'admin' => 'success',
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->since()
@@ -89,6 +89,7 @@ class StaffResource extends Resource
             ]);
     }
 
+
     public static function getRelations(): array
     {
         return [
@@ -99,9 +100,9 @@ class StaffResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStaff::route('/'),
-            'create' => Pages\CreateStaff::route('/create'),
-            'edit' => Pages\EditStaff::route('/{record}/edit'),
+            'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

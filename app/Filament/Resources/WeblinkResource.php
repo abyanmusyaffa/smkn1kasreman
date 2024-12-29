@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\WeblinkResource\Pages;
-use App\Filament\Resources\WeblinkResource\RelationManagers;
-use App\Models\Weblink;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Weblink;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\WeblinkResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\WeblinkResource\RelationManagers;
 
 class WeblinkResource extends Resource
 {
@@ -19,6 +20,7 @@ class WeblinkResource extends Resource
     protected static ?string $modelLabel = 'Web Link';
     protected static ?string $pluralModelLabel = 'Web Link';
 
+    protected static ?string $navigationGroup = 'Preferensi';
     protected static ?string $navigationIcon = 'fas-link';
 
     public static function form(Form $form): Form
@@ -40,23 +42,34 @@ class WeblinkResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Judul')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
+                    ->url(fn (Weblink $record): string => $record->url)
+                    ->openUrlInNewTab()
+                    ->label('Link')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

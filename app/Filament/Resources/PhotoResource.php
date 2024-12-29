@@ -19,6 +19,7 @@ class PhotoResource extends Resource
     protected static ?string $modelLabel = 'Galeri';
     protected static ?string $pluralModelLabel = 'Galeri';
 
+    protected static ?string $navigationGroup = 'Preferensi';
     protected static ?string $navigationIcon = 'fas-image';
 
     public static function form(Form $form): Form
@@ -44,9 +45,17 @@ class PhotoResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('type')
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'hero' => 'Hero',
+                        'gallery' => 'Galeri Skanka',
+                    })
                     ->label('Tipe'),
                 Tables\Columns\ImageColumn::make('photo')
                     ->label('Foto')
+                    ->circular()
+                    ->stacked()
+                    ->limit(3)
+                    ->limitedRemainingText()
                     ->size(100),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
@@ -68,9 +77,7 @@ class PhotoResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+
             ]);
     }
 

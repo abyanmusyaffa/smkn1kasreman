@@ -19,6 +19,7 @@ class PartnerResource extends Resource
     protected static ?string $modelLabel = 'Mitra DU/DI';
     protected static ?string $pluralModelLabel = 'Mitra DU/DI';
 
+    protected static ?string $navigationGroup = 'Sekolah';
     protected static ?string $navigationIcon = 'fas-building-circle-check';
 
     public static function form(Form $form): Form
@@ -55,6 +56,7 @@ class PartnerResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
                     ->wrap()
@@ -63,6 +65,7 @@ class PartnerResource extends Resource
                 Tables\Columns\TextColumn::make('industry')
                     ->label('Bidang Industri')
                     ->badge()
+                    ->color('info')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
@@ -77,6 +80,7 @@ class PartnerResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('name')
             ->filters([
                 //
             ])

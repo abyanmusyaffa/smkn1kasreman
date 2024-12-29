@@ -5,7 +5,7 @@
       <div class="flex flex-col gap-4 lg:gap-6 w-full">
           <div class="grid w-full lg:grid-cols-4 gap-4">
             @foreach($extracurriculars as $extracurricular)
-                <livewire:components.card-extracurricular wire:key="{{ $extracurricular->id }}" :link="$extracurricular->link" :logo="$extracurricular->logo" :name="$extracurricular->name" />
+                <livewire:components.card-extracurricular wire:key="{{ $extracurricular->id }}" :url="$extracurricular->url" :logo="$extracurricular->logo" :name="$extracurricular->name" />
             @endforeach
           </div>
       </div>

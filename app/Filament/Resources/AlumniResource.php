@@ -19,6 +19,7 @@ class AlumniResource extends Resource
     protected static ?string $modelLabel = 'Alumni';
     protected static ?string $pluralModelLabel = 'Alumni';
 
+    protected static ?string $navigationGroup = 'Alumni';
     protected static ?string $navigationIcon = 'fas-user-graduate';
 
     public static function form(Form $form): Form
@@ -64,6 +65,8 @@ class AlumniResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('majors.alias')
                     ->label('Jurusan')
+                    ->badge()
+                    ->color('info')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('position')
                     ->sortable()
@@ -86,7 +89,7 @@ class AlumniResource extends Resource
                     ->sortable()        
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('name', 'asc')
+            ->defaultSort('name')
             ->filters([
                 //
             ])

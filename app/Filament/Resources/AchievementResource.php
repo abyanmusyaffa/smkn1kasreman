@@ -23,8 +23,8 @@ class AchievementResource extends Resource
     protected static ?string $modelLabel = 'Prestasi';
     protected static ?string $pluralModelLabel = 'Prestasi';
 
+    protected static ?string $navigationGroup = 'Sekolah';
     protected static ?string $navigationIcon = 'fas-medal';
-    // protected static ?string $navigationLabel = 'Prestasi';
 
     public static function form(Form $form): Form
     {
@@ -81,6 +81,7 @@ class AchievementResource extends Resource
                 Tables\Columns\TextColumn::make('rankings')
                     ->label('Ranking')
                     ->badge()
+                    ->color('info')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('is_pinned')

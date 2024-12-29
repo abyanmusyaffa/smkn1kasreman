@@ -16,13 +16,15 @@ use Filament\Notifications\Notification;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 
 class Download extends Page implements HasForms
 {
-    use InteractsWithForms;
+    use InteractsWithForms, HasPageShield;
 
     public ?array $data = []; 
 
+    protected static ?string $navigationGroup = 'Preferensi';
     protected static ?string $navigationIcon = 'fas-cloud-download-alt';
 
     protected static ?string $title = 'Download Area';

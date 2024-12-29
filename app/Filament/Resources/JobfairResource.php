@@ -22,6 +22,7 @@ class JobfairResource extends Resource
     protected static ?string $modelLabel = 'Bursa Kerja Khusus';
     protected static ?string $pluralModelLabel = 'Bursa Kerja Khusus';
 
+    protected static ?string $navigationGroup = 'Informasi';
     protected static ?string $navigationIcon = 'fas-briefcase';
 
     public static function form(Form $form): Form
@@ -29,6 +30,7 @@ class JobfairResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label('Judul')
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
@@ -70,29 +72,35 @@ class JobfairResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
+                    ->label('Judul')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deadline')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
+                    ->badge()
+                    ->color('warning')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->since()
+                    ->dateTimeTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

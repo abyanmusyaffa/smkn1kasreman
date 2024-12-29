@@ -19,6 +19,7 @@ class MajorResource extends Resource
     protected static ?string $modelLabel = 'Konsentrasi Keahlian';
     protected static ?string $pluralModelLabel = 'Konsentrasi Keahlian';
 
+    protected static ?string $navigationGroup = 'Sekolah';
     protected static ?string $navigationIcon = 'fas-graduation-cap';
 
     public static function form(Form $form): Form
@@ -77,6 +78,8 @@ class MajorResource extends Resource
                 Tables\Columns\ImageColumn::make('logo')
                     ->label(''),
                 Tables\Columns\TextColumn::make('alias')
+                    ->badge()
+                    ->color('info')
                     ->label('')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
@@ -111,17 +114,15 @@ class MajorResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('name')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+
             ]);
     }
 

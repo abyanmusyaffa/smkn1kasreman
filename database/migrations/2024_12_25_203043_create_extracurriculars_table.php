@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('logo')->default('/default/extracurricular.svg');
             $table->string('name');
-            $table->string('link')->nullable();
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

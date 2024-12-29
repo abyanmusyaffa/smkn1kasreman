@@ -13,7 +13,7 @@ return [
     | This will allow your users to receive real-time notifications.
     |
     */
-
+    'logo' => asset('/img/png/logo-skanka.png'),
     'broadcasting' => [
 
         // 'echo' => [
