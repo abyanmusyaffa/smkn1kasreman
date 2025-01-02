@@ -42,7 +42,7 @@ class AchievementPolicy
     public function update(User $user, Achievement $achievement): bool
     {
         // return $user->id === $achievement->user_id;
-        return $user->hasRole('super_admin') || ($user->hasRole('admin') && $user->id === $achievement->user_id);        ;
+        return $user->hasRole('super_admin') || $user->hasRole('admin') || ($user->hasRole('author') && $user->id == $achievement->user_id);        ;
         // return $user->can('update_achievement');
     }
 
@@ -52,7 +52,7 @@ class AchievementPolicy
     public function delete(User $user, Achievement $achievement): bool
     {
         // return $user->id === $achievement->user_id;
-        return $user->hasRole('super_admin') || ($user->hasRole('admin') && $user->id === $achievement->user_id);
+        return $user->hasRole('super_admin') || $user->hasRole('admin') || ($user->hasRole('author') && $user->id == $achievement->user_id);
         // return $user->can('delete_achievement');
     }
 

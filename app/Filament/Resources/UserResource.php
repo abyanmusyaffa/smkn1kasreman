@@ -9,11 +9,9 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Section;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
 {
@@ -44,13 +42,21 @@ class UserResource extends Resource
                         ->label('Peran')
                         ->native(false)
                         ->relationship(name: 'roles', titleAttribute: 'name')
+                        ->options(function () {
+                            $user = auth()->user();
+                            if ($user->hasRole('admin')) {
+                                return \Spatie\Permission\Models\Role::where('name', 'author')->pluck('name', 'id');
+                            }
+    
+                            return \Spatie\Permission\Models\Role::pluck('name', 'id');
+                        })
                         ->required()
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 4,
                         ]),
                     Forms\Components\TextInput::make('username')
-                        ->unique()
+                        ->unique(ignoreRecord: true)
                         ->required()
                         ->maxLength(255)
                         ->columnSpan([
@@ -59,7 +65,10 @@ class UserResource extends Resource
                         ]),
                     Forms\Components\TextInput::make('password')
                         ->password()
-                        ->required()
+                        ->revealable()
+                        ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
+                        ->dehydrated(fn (?string $state): bool => filled($state))
+                        ->required(fn (string $operation): bool => $operation == 'create')
                         ->maxLength(255)
                         ->columnSpan([
                             'default' => 2,
@@ -72,6 +81,14 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function ($query) {
+                if (auth()->user()->hasRole('admin')) {
+                    $query->whereDoesntHave('roles', function ($query) {
+                        $query->where('name', 'super_admin');
+                    });
+                }
+                return $query;
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama')
@@ -89,10 +106,6 @@ class UserResource extends Resource
                         $index = crc32($state) % count($colors);
                         return $colors[$index];
                     }),
-                    // ->color(fn (string $state): string => match ($state) {
-                    //     'admin' => 'info',
-                    //     'author' => 'success',
-                    // }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->since()
@@ -120,7 +133,6 @@ class UserResource extends Resource
                 ]),
             ]);
     }
-
 
     public static function getRelations(): array
     {

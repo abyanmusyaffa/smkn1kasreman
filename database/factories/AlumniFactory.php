@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Alumni;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -21,10 +22,10 @@ class AlumniFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => fake()->name(),
             'username' => fake()->unique()->regexify('[A-D]{3}[0-3]{2}'),
             'password' => Hash::make('alumni'),
-            'name' => fake()->name(),
-            'class' => fake()->randomElement(['2022', '2023', '2021', '2020', '2019']),
+            'class' => fake()->year(),
             'major_id' => fake()->numberBetween(1, 4),
             'position' => fake()->jobTitle(),
             'company' => fake()->company(),

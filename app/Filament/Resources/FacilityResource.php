@@ -45,7 +45,7 @@ class FacilityResource extends Resource
                         ->label('Foto')
                         ->image()
                         ->required()
-                        ->directory('/facility')
+                        ->directory('/facilities')
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,

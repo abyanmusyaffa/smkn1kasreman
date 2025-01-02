@@ -53,7 +53,7 @@ class JobfairResource extends Resource
                     Forms\Components\FileUpload::make('photo')
                         ->label('Foto')
                         ->image()
-                        ->directory('/jobfair')
+                        ->directory('/jobfairs')
                         ->required()
                         ->columnSpan([
                             'default' => 2,

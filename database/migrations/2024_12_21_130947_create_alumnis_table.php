@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('alumnis', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('username');
             $table->string('password');
-            $table->string('name');
-            $table->string('photo')->nullable();
+            $table->string('photo')->nullable()->default('default/alumni.svg');
             $table->string('class');
             $table->foreignId('major_id')->constrained()->cascadeOnDelete();
             $table->string('position')->nullable();

@@ -8,19 +8,15 @@ use App\Models\Alumni;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Section;
 use Filament\Support\Enums\ActionSize;
 use Filament\Tables\Actions\ActionGroup;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\AlumniResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\AlumniResource\RelationManagers;
 
 class AlumniResource extends Resource
 {
     protected static ?string $model = Alumni::class;
-    protected static ?string $modelLabel = 'Alumni';
-    protected static ?string $pluralModelLabel = 'Alumni';
 
     protected static ?string $navigationGroup = 'Alumni';
     protected static ?string $navigationIcon = 'fas-user-graduate';
@@ -36,7 +32,7 @@ class AlumniResource extends Resource
                 ])
                 ->schema([
                     Forms\Components\TextInput::make('username')
-                        ->unique()
+                        ->unique(ignoreRecord: true )
                         ->required()
                         ->maxLength(255)
                         ->columnSpan([
@@ -45,7 +41,13 @@ class AlumniResource extends Resource
                         ]),
                     Forms\Components\TextInput::make('password')
                         ->password()
-                        ->required()
+                        ->revealable()
+                        ->afterStateHydrated(function (Forms\Components\TextInput $component, $state) {
+                            $component->state('');
+                        })
+                        ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
+                        ->dehydrated(fn (?string $state): bool => filled($state))
+                        ->required(fn (string $operation): bool => $operation == 'create')
                         ->maxLength(255)
                         ->columnSpan([
                             'default' => 2,
@@ -87,7 +89,8 @@ class AlumniResource extends Resource
                     Forms\Components\FileUpload::make('photo')
                         ->image()
                         ->label('Foto')
-                        ->default('/default/alumni.jpg')
+                        ->directory('/alumnis')
+                        ->default('/default/alumni.svg')
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,

@@ -1,6 +1,6 @@
 <article class="flex w-full flex-col p-4 gap-2 lg:gap-4 bg-white rounded-2xl">
     <header class="flex w-full gap-2 lg:gap-4 items-center">
-        <figure style="background-image: url(/storage/{{ $photo }});" class="bg-no-repeat bg-cover bg-center rounded-full size-14 lg:size-16"></figure>
+        <figure style="background-image: url({{ strpos($photo, 'alumnis-tracer') !== false ? 'http://tracer-smkn1kasreman.test/' : '' }}/storage/{{ $photo }});" class="bg-no-repeat bg-cover bg-center rounded-full size-14 lg:size-16"></figure>
         <figcaption>
             <h5 class="text-xs lg:text-base text-slate-700 inline">{{ $name }}</h5>
             <p class="inline text-2xs lg:text-xs text-slate-600">/ Alumni {{ $class }}</p>

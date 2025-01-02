@@ -32,7 +32,7 @@ class About extends Page implements HasForms
 
     public function mount(): void
     {
-        $this->form->fill(School::find(1)->toArray() ?? []); 
+        $this->form->fill(School::find(1)->toArray() ?? []);
     }
 
     public function form(Form $form): Form

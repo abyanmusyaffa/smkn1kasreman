@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -31,7 +32,6 @@ class User extends Authenticatable
         'name',
         'username',
         'password',
-        'role',
     ];
 
     /**
@@ -70,5 +70,10 @@ class User extends Authenticatable
     public function jobfairs(): HasMany
     {
         return $this->hasMany(Jobfair::class);
+    }
+
+    public function alumnis(): HasOne
+    {
+        return $this->hasOne(Alumni::class);
     }
 }

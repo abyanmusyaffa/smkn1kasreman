@@ -34,7 +34,7 @@ class MajorResource extends Resource
                 ])
                 ->schema([
                     Forms\Components\FileUpload::make('logo')
-                        ->directory('/major/logo')
+                        ->directory('/majors/logo')
                         ->image()
                         ->required()
                         ->columnSpan([
@@ -111,7 +111,7 @@ class MajorResource extends Resource
                         ->multiple()
                         ->minFiles(2)
                         ->maxFiles(2)
-                        ->directory('/major/cover')
+                        ->directory('/majors/cover')
                         ->image()
                         ->panelLayout('grid')
                         ->reorderable()

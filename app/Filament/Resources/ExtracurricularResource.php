@@ -43,7 +43,7 @@ class ExtracurricularResource extends Resource
                         ]),
                     Forms\Components\FileUpload::make('logo')
                         ->image()
-                        ->directory('/extracurricular')
+                        ->directory('/extracurriculars')
                         ->default('/default/extracurricular.svg')
                         ->columnSpan([
                             'default' => 2,

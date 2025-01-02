@@ -77,7 +77,7 @@ class Download extends Page implements HasForms
     {
         return [
             Action::make('save')
-                ->label('Save Changes')
+                ->label('Simpan')
                 ->submit('save'),
         ];
     }
@@ -94,7 +94,7 @@ class Download extends Page implements HasForms
     
         Notification::make()
             ->success()
-            ->title('Simpan')
+            ->title('Data tersimpan')
             ->send();
     }
 

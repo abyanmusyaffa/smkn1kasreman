@@ -40,7 +40,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article): bool
     {
-        return $user->hasRole('super_admin') || ($user->hasRole('admin') && $user->id === $article->user_id);
+        return $user->hasRole('super_admin') || $user->hasRole('admin') || ($user->hasRole('author') && $user->id == $article->user_id);
         // return $user->can('update_article');
     }
 
@@ -49,7 +49,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article): bool
     {
-        return $user->hasRole('super_admin') || ($user->hasRole('admin') && $user->id === $article->user_id);
+        return $user->hasRole('super_admin') || $user->hasRole('admin') || ($user->hasRole('author') && $user->id == $article->user_id);
         // return $user->can('delete_article');
     }
 
