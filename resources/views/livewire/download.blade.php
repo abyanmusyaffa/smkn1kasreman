@@ -3,11 +3,13 @@
     <article class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Download" span="Area" />
 
+        @if($download->count() > 0)
         <div class="flex bg-white rounded-2xl w-full p-4 lg:p-6">
             <div class="prose w-full max-w-none prose-figure:w-36 lg:prose-figure:w-56">
                {!! $download->content !!}
             </div>
         </div>
+        @endif
     </article>
     <!-- alumni -->
 </div>

@@ -60,6 +60,7 @@ class AchievementResource extends Resource
                     Forms\Components\Hidden::make('slug'),
                     Forms\Components\TextInput::make('rankings')
                         ->label('Peringkat')
+                        ->placeholder('Juara 1')
                         ->required()
                         ->maxLength(255)
                         ->columnSpan([

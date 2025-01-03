@@ -24,7 +24,7 @@ class About extends Page implements HasForms
     public ?array $data = []; 
 
     protected static ?string $navigationGroup = 'Sekolah';
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-s-document-text';
 
     protected static ?string $title = 'Data Sekolah';
 
@@ -45,6 +45,7 @@ class About extends Page implements HasForms
                 ])
                 ->schema([
                     FileUpload::make('logo')
+                        ->image()
                         ->directory('/logo')
                         ->label('Logo')
                         ->required()
@@ -69,6 +70,7 @@ class About extends Page implements HasForms
                         ]),
                     Textarea::make('address')
                         ->label('Alamat')
+                        ->rows(3)
                         ->required()
                         ->columnSpan([
                             'default' => 2,
@@ -213,9 +215,8 @@ class About extends Page implements HasForms
                 ])
                 ->schema([
                     TextArea::make('welcome_text')
-                        ->rows(10)
+                        ->rows(16)
                         ->label('Sambutan Kepala Sekolah')
-                        ->required()
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12

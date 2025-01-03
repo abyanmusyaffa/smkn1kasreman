@@ -1,7 +1,7 @@
 <header>
     <nav class="w-full flex justify-between bg-gradient-to-r from-blue-500 to-blue-600 h-16 lg:h-24 px-4 lg:px-16 2xl:px-36 items-center fixed z-10">
       <!-- logo -->
-      <a href="" wire:navigate class="flex gap-2 2xl:gap-4 items-center">
+      <a href="/" wire:navigate class="flex gap-2 2xl:gap-4 items-center">
         <img src="/storage/{{ $school->logo }}" class="w-9 lg:w-12 2xl:w-16" alt="logo-skanka" />
         <p class="font-medium text-slate-50 lg:text-lg 2xl:text-2xl">SMK N {{ $school->name }}</p>
       </a>

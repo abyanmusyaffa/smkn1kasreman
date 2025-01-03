@@ -1,4 +1,4 @@
-<a href="/jobfair/{{ $slug }}" class="w-full group">
+<a href="/jobfair/{{ $slug }}" wire:navigate class="w-full group">
     <article class="flex w-full rounded-2xl gap-2 bg-white duration-500 transition-all">
         <figure style="background-image: url(/storage/{{ $photo }});" class="w-1/3 aspect-square rounded-s-2xl bg-cover bg-no-repeat bg-center"></figure>
         <figcaption class="w-2/3 flex flex-col gap-2 py-2 pr-2 justify-between">

@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobfairs', function (Blueprint $table) {
+        Schema::create('imports', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->string('photo');
-            $table->datetime('deadline');
-            $table->longtext('content');
-            $table->json('industry');
-            $table->boolean('show')->default(true);
+            $table->timestamp('completed_at')->nullable();
+            $table->string('file_name');
+            $table->string('file_path');
+            $table->string('importer');
+            $table->unsignedInteger('processed_rows')->default(0);
+            $table->unsignedInteger('total_rows');
+            $table->unsignedInteger('successful_rows')->default(0);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jobfairs');
+        Schema::dropIfExists('imports');
     }
 };

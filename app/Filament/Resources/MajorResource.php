@@ -41,6 +41,20 @@ class MajorResource extends Resource
                             'default' => 2,
                             'lg' => 12,
                         ]),
+                    Forms\Components\FileUpload::make('photo')
+                        ->label('Foto Sampul')
+                        ->multiple()
+                        ->minFiles(2)
+                        ->maxFiles(2)
+                        ->directory('/majors/cover')
+                        ->image()
+                        ->panelLayout('grid')
+                        ->reorderable()
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
                     Forms\Components\TextInput::make('name')
                         ->label('Nama')
                         ->required()
@@ -102,20 +116,6 @@ class MajorResource extends Resource
                             'underline',
                             'undo',
                         ])
-                        ->columnSpan([
-                            'default' => 2,
-                            'lg' => 12,
-                        ]),
-                    Forms\Components\FileUpload::make('photo')
-                        ->label('Foto')
-                        ->multiple()
-                        ->minFiles(2)
-                        ->maxFiles(2)
-                        ->directory('/majors/cover')
-                        ->image()
-                        ->panelLayout('grid')
-                        ->reorderable()
-                        ->required()
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,

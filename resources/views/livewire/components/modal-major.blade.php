@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="scroll-bar-none flex size-full rounded-xl bg-white p-4 overflow-y-scroll">
-                <article class="prose">
+                <article class="prose lg:prose-figure:w-2/3">
                     {!! $description !!}
                 </article>
             </div>

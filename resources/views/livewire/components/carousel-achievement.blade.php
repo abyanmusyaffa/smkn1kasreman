@@ -1,4 +1,4 @@
-<a href="/achievement/{{ $slug }}" class="">
+<a href="/achievement/{{ $slug }}" wire:navigate class="">
     <article data-slide-achievement="{{ $index+1 }}" class="size-full relative">
         <figcaption class="bg-gradient-to-t lg:bg-gradient-to-r from-slate-900 to-white/0 size-full flex absolute rounded-2xl">
             <div class="flex w-full lg:w-2/3 lg:flex-col items-end lg:items-start lg:justify-center p-2 lg:gap-8 lg:py-12 lg:px-20">

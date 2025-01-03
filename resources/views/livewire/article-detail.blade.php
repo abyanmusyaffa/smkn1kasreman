@@ -45,7 +45,7 @@
             <img src="/storage/{{ $articleDetail->photo }}" class="w-5/6 lg:w-auto lg:h-80" alt="">
         </header>
         <div class="flex bg-white rounded-2xl p-4 lg:p-6">
-            <div class="prose w-full max-w-none">
+            <div class="prose lg:prose-figure:w-2/3 w-full max-w-none">
                {!! $articleDetail->content !!}
             </div>
         </div>

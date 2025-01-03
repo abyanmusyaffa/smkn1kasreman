@@ -40,7 +40,7 @@ class JobfairPolicy
      */
     public function update(User $user, Jobfair $jobfair): bool
     {
-        return $user->hasRole('super_admin') || $user->hasRole('admin') || ($user->hasRole('author') && $user->id == $jobfair->user_id);
+        return !$user->hasRole('author') || ($user->hasRole('author') && $user->id == $jobfair->user_id);
         // return $user->can('update_jobfair');
     }
 
@@ -49,7 +49,7 @@ class JobfairPolicy
      */
     public function delete(User $user, Jobfair $jobfair): bool
     {
-        return $user->hasRole('super_admin') || $user->hasRole('admin') || ($user->hasRole('author') && $user->id == $jobfair->user_id);
+        return !$user->hasRole('author') || ($user->hasRole('author') && $user->id == $jobfair->user_id);
         // return $user->can('delete_jobfair');
     }
 

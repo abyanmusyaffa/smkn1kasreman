@@ -38,7 +38,8 @@ class StaffResource extends Resource
                     Forms\Components\TextInput::make('name')
                         ->label('Nama')
                         ->required()
-                        ->maxLength(21)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
+                        ->maxLength(22)
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,
@@ -46,7 +47,6 @@ class StaffResource extends Resource
                     Forms\Components\FileUpload::make('photo')
                         ->label('Foto')
                         ->image()
-                        ->required()
                         ->directory('/staff')
                         ->default('/default/staff-male.svg')
                         ->columnSpan([
@@ -54,9 +54,11 @@ class StaffResource extends Resource
                             'lg' => 12,
                         ]),
                     Forms\Components\TextInput::make('role')
+                        ->placeholder('Guru Bahasa Indonesia')
                         ->label('Jabatan')
                         ->required()
-                        ->maxLength(255)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
+                        ->maxLength(30)
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 6,

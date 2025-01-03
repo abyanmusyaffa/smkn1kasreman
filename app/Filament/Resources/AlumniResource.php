@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Imports\AlumniImporter;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Alumni;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ImportAction;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Section;
 use Filament\Support\Enums\ActionSize;
@@ -63,7 +65,8 @@ class AlumniResource extends Resource
                     Forms\Components\TextInput::make('name')
                         ->label('Name')
                         ->required()
-                        ->maxLength(25)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
+                        ->maxLength(28)
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,
@@ -116,7 +119,14 @@ class AlumniResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(AlumniImporter::class)
+            ])
             ->columns([
+                Tables\Columns\TextColumn::make('username')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->label('Nama')

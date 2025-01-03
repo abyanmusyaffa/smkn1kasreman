@@ -1,5 +1,5 @@
 {{-- @dd($partners) --}}
-<div class="w-full flex flex-col gap-9 lg:gap-12 px-4 pt-20 pb-9 lg:px-16 2xl:px-36 lg:pt-[120px] lg:pb-12 bg-slate-100">
+<div class="w-full lg:min-h-[calc(100svh-376px)] min-h-[calc(100svh-512px)] flex flex-col gap-9 lg:gap-12 px-4 pt-20 pb-9 lg:px-16 2xl:px-36 lg:pt-[120px] lg:pb-12 bg-slate-100">
     <!-- hero -->
     <figure class="relative flex w-full">
       <div class="w-full relative overflow-hidden h-[480px] lg:h-[560px]">
@@ -34,17 +34,12 @@
       <figure class="flex flex-col gap-2 lg:gap-4 items-center w-full">
         <h3 class="text-xl lg:text-3xl font-medium text-slate-800">Mitra DU/DI</h3>
         <p class="lg:text-xl text-slate-700 lg:w-3/5">
-          SMKN 1 Kasreman bekerja sama dengan berbagai mitra DU/DI untuk mendukung pembelajaran siswa dan membuka peluang karir di dunia kerja.
+          SMKN {{ $school->name }} bekerja sama dengan berbagai mitra DU/DI untuk mendukung pembelajaran siswa dan membuka peluang karir di dunia kerja.
         </p>
-        <div class="flex w-full overflow-x-hidden">
-          <div class="flex *:object-contain *:h-12 gap-9 lg:gap-12 items-center flex-shrink-0 animate-partners-scroll pe-9 lg:pe-12">
+        <div class="logo-container flex w-full overflow-x-hidden">
+          <div class="logo-animation flex *:object-contain *:h-12 gap-9 lg:gap-12 items-center flex-shrink-0 animate-partners-scroll pe-9 lg:pe-12">
             @foreach($partners as $partner)
-            <img src="/storage/{{ $partner }}" alt="" />
-            @endforeach
-          </div>
-          <div class="flex *:object-contain *:h-12 gap-9 lg:gap-12 items-center flex-shrink-0 animate-partners-scroll pe-9 lg:pe-12">
-            @foreach($partners as $partner)
-            <img src="/storage/{{ $partner }}" alt="" />
+              <img src="/storage/{{ $partner }}" alt="" />
             @endforeach
           </div>
         </div>
@@ -57,7 +52,7 @@
      <aside class="flex rounded-2xl bg-blue-600 w-full p-4 lg:py-6 lg:px-16 flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
       <div class="flex flex-col gap-2 lg:gap-4 w-full lg:w-1/3 text-center lg:text-start">
         <h2 class="text-2xl lg:text-5xl font-medium text-slate-50">Konsentrasi <br> Keahlian</h2>
-        <p class="lg:text-xl text-slate-100">Beberapa konsentrasi keahlian di SMKN 1 Kasreman dirancang untuk mengantarkan siswa meraih kesuksesan di masa depan.</p>
+        <p class="lg:text-xl text-slate-100">Beberapa konsentrasi keahlian di SMKN {{ $school->name }} dirancang untuk mengantarkan siswa meraih kesuksesan di masa depan.</p>
       </div>
       <div class="grid grid-cols-12 w-full lg:w-3/5 gap-2 lg:gap-4">
         @foreach($majors as $major)
@@ -68,77 +63,19 @@
     <!-- major -->
 
     <!-- achievement -->
+    @if($achievements->count() > 0)
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
-        <livewire:components.title-right text="Prestasi" span="Kita" />
+      <livewire:components.title-right text="Prestasi" span="Kita" />
       <div class="grid lg:grid-cols-4 gap-4">
         @foreach($achievements as $achievement)
           <livewire:components.card-achievement wire:key="{{ $achievement->id }}" :slug="$achievement->slug" :photo="$achievement->photo" :rankings="$achievement->rankings" :title="$achievement->title" :createdAt="$achievement->created_at" /> 
         @endforeach
-        {{-- <a href="" class="w-full group">
-          <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
-                  <div class="flex w-fit bg-blue-600 px-2 lg:px-4 lg:pb- rounded">
-                      <p class="text-slate-50 text-xs lg:text-base">Juara 2</p>
-                  </div>
-                  <h4 class="text-sm lg:text-xl text-slate-700 lg:text-center h-[3lh] line-clamp-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta reprehenderit commodi deleniti porro, dignissimos error at ab facere quisquam nemo.</h4>
-                  <div class="flex gap-2 items-center">
-                      <span class="icon-[mdi--calendar-badge] text-xs lg:text-sm text-slate-600"></span>
-                      <p class="text-xs lg:text-sm text-slate-600">5 Januari 2024</p>
-                  </div>
-              </figcaption>
-          </article>
-        </a>
-        <a href="" class="w-full group">
-          <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
-                  <div class="flex w-fit bg-blue-600 px-2 lg:px-4 lg:pb- rounded">
-                      <p class="text-slate-50 text-xs lg:text-base">Juara 2</p>
-                  </div>
-                  <h4 class="text-sm lg:text-xl text-slate-700 lg:text-center h-[3lh] line-clamp-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta reprehenderit commodi deleniti porro, dignissimos error at ab facere quisquam nemo.</h4>
-                  <div class="flex gap-2 items-center">
-                      <span class="icon-[mdi--calendar-badge] text-xs lg:text-sm text-slate-600"></span>
-                      <p class="text-xs lg:text-sm text-slate-600">5 Januari 2024</p>
-                  </div>
-              </figcaption>
-          </article>
-        </a>
-        <a href="" class="w-full group">
-          <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
-                  <div class="flex w-fit bg-blue-600 px-2 lg:px-4 lg:pb- rounded">
-                      <p class="text-slate-50 text-xs lg:text-base">Juara 2</p>
-                  </div>
-                  <h4 class="text-sm lg:text-xl text-slate-700 lg:text-center h-[3lh] line-clamp-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta reprehenderit commodi deleniti porro, dignissimos error at ab facere quisquam nemo.</h4>
-                  <div class="flex gap-2 items-center">
-                      <span class="icon-[mdi--calendar-badge] text-xs lg:text-sm text-slate-600"></span>
-                      <p class="text-xs lg:text-sm text-slate-600">5 Januari 2024</p>
-                  </div>
-              </figcaption>
-          </article>
-        </a>
-        <a href="" class="w-full group">
-          <article class="flex w-full lg:flex-col rounded-2xl gap-2 bg-white lg:group-hover:scale-105 duration-500 transition-all">
-              <figure style="background-image: url(/img/achievement/achiev\ \(7\).jpg);" class="w-1/3 aspect-square lg:aspect-[4/3] lg:w-full rounded-s-2xl lg:rounded-b-none lg:rounded-t-2xl bg-cover bg-no-repeat bg-center"></figure>
-              <figcaption class="w-2/3 lg:w-full flex flex-col gap-1 py-2 pr-2 lg:px-2 lg:pb-2 lg:items-center justify-between">
-                  <div class="flex w-fit bg-blue-600 px-2 lg:px-4 lg:pb- rounded">
-                      <p class="text-slate-50 text-xs lg:text-base">Juara 2</p>
-                  </div>
-                  <h4 class="text-sm lg:text-xl text-slate-700 lg:text-center h-[3lh] line-clamp-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta reprehenderit commodi deleniti porro, dignissimos error at ab facere quisquam nemo.</h4>
-                  <div class="flex gap-2 items-center">
-                      <span class="icon-[mdi--calendar-badge] text-xs lg:text-sm text-slate-600"></span>
-                      <p class="text-xs lg:text-sm text-slate-600">5 Januari 2024</p>
-                  </div>
-              </figcaption>
-          </article>
-        </a> --}}
       </div>
       <footer>
         <livewire:components.more-button text="Prestasi Lainya" href="/achievement" />
       </footer>
     </aside>
+    @endif
     <!-- achievement -->
 
     <!-- gallery -->
@@ -147,13 +84,14 @@
       <figure class="grid grid-cols-2 lg:grid-cols-3 grid-rows-6 lg:grid-rows-3 w-full gap-2 lg:gap-4">
         <iframe class="w-full aspect-video lg:h-full lg:aspect-auto rounded-2xl col-span-2 row-span-2" src="https://www.youtube.com/embed/{{ $video_id }}?si=Hifffx7NdQLbAi2f&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         @foreach($galleries as $index => $galerry)
-        <div style="background-image: url(/storage/{{ $galerry }});" class="w-full aspect-video rounded-2xl bg-center bg-no-repeat bg-cover {{ $index == 2 ? 'col-span-2 row-span-2 lg:row-span-1 lg:col-span-1' : '' }}"></div>
+          <div style="background-image: url(/storage/{{ $galerry }});" class="w-full aspect-video rounded-2xl bg-center bg-no-repeat bg-cover {{ $index == 2 ? 'col-span-2 row-span-2 lg:row-span-1 lg:col-span-1' : '' }}"></div>
         @endforeach
       </figure>
     </aside>
     <!-- gallery -->
 
     <!-- news -->
+    @if($articles->count() > 0)
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
       <livewire:components.title-right :text="$school->alias" span="Terkini" />
         <div class="drag-to-scroll flex w-full gap-4 overflow-x-scroll lg:overflow-x-visible cursor-grab active:cursor-grabbing snap-x snap-mandatory p-2 lg:p-0">
@@ -161,20 +99,23 @@
             <livewire:components.card-article-home wire:key="{{ $article->id }}" :category="$article->category" :slug="$article->slug" :photo="$article->photo" :createdAt="$article->created_at" :title="$article->title" />
           @endforeach
         </div>
-      </aside>
+    </aside>
+    @endif
     <!-- news -->
 
     <!-- alumni story -->
+    @if($testimonials->count() > 0)
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Cerita" span="Alumni" />
       <div class="drag-to-scroll flex gap-4 w-full cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll pt-10 lg:pt-14 p-2">
         @foreach($testimonials as $testimonial)
-        <livewire:components.card-testimonial-home wire:key="{{ $testimonial->id }}" :photo="$testimonial->alumnis->photo" :name="$testimonial->alumnis->name" :class="$testimonial->alumnis->class" :position="$testimonial->alumnis->position" :company="$testimonial->alumnis->company" :content="$testimonial->content" :rating="$testimonial->rating" />
+          <livewire:components.card-testimonial-home wire:key="{{ $testimonial->id }}" :photo="$testimonial->alumnis->photo" :name="$testimonial->alumnis->name" :class="$testimonial->alumnis->class" :position="$testimonial->alumnis->position" :company="$testimonial->alumnis->company" :content="$testimonial->content" :rating="$testimonial->rating" />
         @endforeach
       </div>
       <footer>
         <livewire:components.more-button text="Cerita Lainya" href="/alumni" />
       </footer>
     </aside>
+    @endif
     <!-- alumni story -->
-  </div>
+</div>

@@ -1,5 +1,6 @@
-<div class="w-full flex flex-col gap-9 lg:gap-12 px-4 pt-20 pb-9 lg:px-16 2xl:px-36 lg:pt-[120px] lg:pb-12 bg-slate-100">
-    <!-- welcome -->
+<div class="w-full lg:min-h-[calc(100svh-376px)] min-h-[calc(100svh-512px)] flex flex-col gap-9 lg:gap-12 px-4 pt-20 pb-9 lg:px-16 2xl:px-36 lg:pt-[120px] lg:pb-12 bg-slate-100">
+    <!-- welcome text-->
+    @if($school->welcome_text != null)
      <article class="flex flex-col lg:flex-row-reverse items-center gap-4 lg:gap-12 lg:px-24">
       <figure>
         <livewire:components.card-staff :photo="$headMaster->photo" :name="$headMaster->name" :role="$headMaster->role" />
@@ -8,7 +9,8 @@
         <p class="text-sm lg:text-base italic text-slate-700 text-center">“{{ $school->welcome_text }}”</p>
       </figcaption>
      </article>
-    <!-- welcome -->
+    @endif
+    <!-- welcome text-->
 
     <!-- profile -->
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
@@ -20,31 +22,31 @@
           <img src="/img/svg/vokasi.svg" class="h-8 lg:h-16" alt="">
         </figure>
         <article class="text-justify lg:text-xl text-slate-700 prose max-w-none">{!! $school->description !!}</article>
-        <div class="grid grid-cols-2 lg:grid-cols-5 gap-2 w-full">
-          <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
+        <div class="counter-container grid grid-cols-2 lg:grid-cols-5 gap-2 w-full">
+          <div class="flex flex-col items-center w-full bg-blue-600 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--people-outline] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">{{ $totalStaff }}</p>
-            <p class="text-sm lg:text-lg font-medium whitespace-nowrap">Tenaga Kependidikan</p>
+            <p class="counters text-5xl font-semibold" data-count="{{ $totalStaff }}">0</p>
+            <p class="text-sm text-center lg:text-lg font-medium">Tenaga Kependidikan</p>
           </div>
-          <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
+          <div class="flex flex-col items-center w-full bg-blue-600 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--user-outline] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">{{ $totalTeachers }}</p>
-            <p class="text-sm lg:text-lg font-medium">Guru</p>
+            <p class="counters text-5xl font-semibold" data-count="{{ $totalTeachers }}">0</p>
+            <p class="text-sm text-center lg:text-lg font-medium">Guru</p>
           </div>
-          <div class="flex flex-col lg:order-first col-span-2 lg:col-span-1 items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
+          <div class="flex flex-col lg:order-first col-span-2 lg:col-span-1 items-center w-full bg-blue-600 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[ph--student] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">{{ $totalStudents }}</p>
-            <p class="text-sm lg:text-lg font-medium">Siswa</p>
+            <p class="counters text-5xl font-semibold" data-count="{{ $totalStudents }}">0</p>
+            <p class="text-sm text-center lg:text-lg font-medium">Siswa</p>
           </div>
-          <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
+          <div class="flex flex-col items-center w-full bg-blue-600 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--graduation-cap-outline] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">{{ $totalMajors }}</p>
-            <p class="text-sm lg:text-lg font-medium">Konsentrasi Keahlian</p>
+            <p class="counters text-5xl font-semibold" data-count="{{ $totalMajors }}">0</p>
+            <p class="text-sm text-center lg:text-lg font-medium">Konsentrasi Keahlian</p>
           </div>
-          <div class="flex flex-col items-center w-full bg-blue-500 p-2 rounded-lg lg:rounded-2xl text-slate-50">
+          <div class="flex flex-col items-center w-full bg-blue-600 p-2 rounded-lg lg:rounded-2xl text-slate-50">
             <span class="icon-[mdi--tennis-ball-outline] text-5xl lg:text-[80px]"></span>
-            <p class="text-5xl font-semibold">{{ $totalExtracurriculars }}</p>
-            <p class="text-sm lg:text-lg font-medium">Ekstrakurikuler</p>
+            <p class="counters text-5xl font-semibold" data-count="{{ $totalExtracurriculars }}">0</p>
+            <p class="text-sm text-center lg:text-lg font-medium">Ekstrakurikuler</p>
           </div>
         </div>
         <article class="flex w-full flex-col rounded-2xl outline-4 outline outline-slate-200 p-4 lg:p-6 gap-2 lg:gap-6">
@@ -70,13 +72,15 @@
     <!-- profile -->
 
     <!-- facility -->
+    @if($facilities->count() > 0)
     <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
-        <livewire:components.title-right text="Sarana" span="Prasarana" />
+      <livewire:components.title-right text="Sarana" span="Prasarana" />
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
         @foreach($facilities as $facility)
             <livewire:components.card-facility wire:key="{{ $facility->id }}" :name="$facility->name" :photo="$facility->photo" />
         @endforeach
       </div>
     </aside>
+    @endif
     <!-- facility -->
 </div>

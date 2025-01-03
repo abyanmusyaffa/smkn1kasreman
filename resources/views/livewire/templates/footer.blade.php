@@ -56,18 +56,18 @@
       <div class="flex flex-col w-full gap-2 lg:gap-4 lg:pl-[35%]">
         <h2 class="font-medium text-xl lg:text-3xl text-slate-50">Menu Utama</h2>
         <div class="flex flex-col w-full gap-1 lg:gap-2">
-          <a href="" class="text-xs lg:text-xl text-slate-50">Tentang Sekolah</a>
-          <a href="" class="text-xs lg:text-xl text-slate-50">GTK</a>
-          <a href="" class="text-xs lg:text-xl text-slate-50">Konsentrasi Keahlian</a>
-          <a href="" class="text-xs lg:text-xl text-slate-50">Berita</a>
-          <a href="" class="text-xs lg:text-xl text-slate-50">Prestasi</a>
-          <a href="" class="text-xs lg:text-xl text-slate-50">PPDB</a>
+          <a href="/about" wire:navigate class="text-xs lg:text-xl text-slate-50">Tentang Sekolah</a>
+          <a href="/staff" wire:navigate class="text-xs lg:text-xl text-slate-50">GTK</a>
+          <a href="/major" wire:navigate class="text-xs lg:text-xl text-slate-50">Konsentrasi Keahlian</a>
+          <a href="/news" wire:navigate class="text-xs lg:text-xl text-slate-50">Berita</a>
+          <a href="/achievement" wire:navigate class="text-xs lg:text-xl text-slate-50">Prestasi</a>
+          <a href="/enrollment" wire:navigate class="text-xs lg:text-xl text-slate-50">PPDB</a>
         </div>
       </div>
       <!-- menu -->
 
     </div>
     <div class="grid place-items-center w-full h-8 lg:h-12 bg-blue-700">
-      <p class="text-slate-50 text-2xs lg:text-lg">© 2024 SMK N 1 Kasreman ft Abyan Aufa Alif Musyaffa</p>
+      <p class="text-slate-50 text-2xs lg:text-lg">© 2024 SMK N {{ $school->name }} ft Abyan Aufa Alif Musyaffa</p>
     </div>
   </footer>

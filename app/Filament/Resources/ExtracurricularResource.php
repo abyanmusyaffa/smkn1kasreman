@@ -36,7 +36,8 @@ class ExtracurricularResource extends Resource
                     Forms\Components\TextInput::make('name')
                         ->label('Nama')
                         ->required()
-                        ->maxLength(255)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter') 
+                        ->maxLength(40)
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,
@@ -65,8 +66,6 @@ class ExtracurricularResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('logo')
-                    ->label(''),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama')
                     ->sortable()

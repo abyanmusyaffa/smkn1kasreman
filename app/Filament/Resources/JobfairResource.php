@@ -39,6 +39,13 @@ class JobfairResource extends Resource
                     'lg' => 12,
                 ])
                 ->schema([
+                    Forms\Components\Toggle::make('show')
+                        ->label('Tampilkan')
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
                     Forms\Components\TextInput::make('title')
                         ->label('Judul')
                         ->required()
@@ -90,7 +97,7 @@ class JobfairResource extends Resource
                             'default' => 2,
                             'lg' => 8,
                         ]),
-                    Forms\Components\DatePicker::make('deadline')
+                    Forms\Components\DatetimePicker::make('deadline')
                         ->label('Tenggat Waktu')
                         ->required()
                         ->columnSpan([
@@ -122,6 +129,9 @@ class JobfairResource extends Resource
                         return Carbon::parse($state)->isPast() ? 'Lowongan Ditutup' : Carbon::parse($state)->diffForHumans();
                     })
                     ->dateTimeTooltip()
+                    ->sortable(),
+                Tables\Columns\ToggleColumn::make('show')
+                    ->label('Tampilkan')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')

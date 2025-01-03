@@ -23,7 +23,7 @@ class TestimonialResource extends Resource
     protected static ?string $pluralModelLabel = 'Testimoni Alumni';
 
     protected static ?string $navigationGroup = 'Alumni';
-    protected static ?string $navigationIcon = 'fas-star-half-alt';
+    protected static ?string $navigationIcon = 'heroicon-s-chat-bubble-bottom-center-text';
 
     public static function form(Form $form): Form
     {
@@ -35,6 +35,14 @@ class TestimonialResource extends Resource
                     'lg' => 12,
                 ])
                 ->schema([
+                    Forms\Components\Toggle::make('show')
+                        ->default(true)
+                        ->label('Tampilkan')
+                        ->required()
+                        ->columnSpan([
+                            'default' => 2,
+                            'lg' => 12,
+                        ]),
                     Forms\Components\Select::make('alumni_id')
                         ->native(false)
                         ->relationship(name: 'alumnis', titleAttribute: 'name')
@@ -55,6 +63,7 @@ class TestimonialResource extends Resource
                     Forms\Components\Textarea::make('content')
                         ->label('Isi')
                         ->rows(10)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
                         ->maxLength(400)
                         ->required()
                         ->columnSpan([
@@ -85,6 +94,9 @@ class TestimonialResource extends Resource
                     ->icon('fas-star')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\ToggleColumn::make('show')
+                    ->label('Tampilkan')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->since()
@@ -97,7 +109,7 @@ class TestimonialResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('alumnis.name')
+            ->defaultSort('updated_at', 'desc')
             ->filters([
                 //
             ])

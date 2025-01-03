@@ -39,7 +39,8 @@ class PartnerResource extends Resource
                     Forms\Components\TextInput::make('name')
                         ->label('Nama')
                         ->required()
-                        ->maxLength(255)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter') 
+                        ->maxLength(56)
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,
@@ -54,7 +55,8 @@ class PartnerResource extends Resource
                         ]),
                     Forms\Components\Textarea::make('address')
                         ->label('Alamat')
-                        ->maxLength(255)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter') 
+                        ->maxLength(128)
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,

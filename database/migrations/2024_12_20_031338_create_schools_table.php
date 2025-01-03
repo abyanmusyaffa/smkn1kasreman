@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('mission');
             $table->string('url_video_profile');
             $table->longText('description');
-            $table->text('welcome_text');
+            $table->text('welcome_text')->nullable();
             $table->string('address');
             $table->string('phone');
             $table->string('email');

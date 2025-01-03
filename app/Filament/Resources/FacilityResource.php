@@ -36,7 +36,8 @@ class FacilityResource extends Resource
                     Forms\Components\TextInput::make('name')
                         ->label('Name')
                         ->required()
-                        ->maxLength(255)
+                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
+                        ->maxLength(40)
                         ->columnSpan([
                             'default' => 2,
                             'lg' => 12,

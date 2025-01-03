@@ -1,4 +1,4 @@
-<a href="/news/{{ $slug }}" class="">
+<a href="/news/{{ $slug }}" wire:navigate class="">
     <article data-slide-achievement="1" class="size-full relative">
         <figcaption class="bg-gradient-to-t lg:bg-gradient-to-r from-slate-900 to-white/0 size-full flex absolute rounded-2xl">
           <div class="flex w-full lg:w-2/3 lg:flex-col items-end lg:items-start p-4 gap-4 lg:py-12 lg:px-20">

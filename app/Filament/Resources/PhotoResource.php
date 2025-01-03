@@ -68,6 +68,10 @@ class PhotoResource extends Resource
                         'hero' => 'Hero',
                         'gallery' => 'Galeri Skanka',
                     })
+                    ->description(fn (string $state): string => match ($state) {
+                        'hero' => 'Ditampilkan dibagian awal halaman beranda',
+                        'gallery' => 'Ditampilkan dibagian Galeri',
+                    })
                     ->label('')
                     ->weight(FontWeight::Bold),
                 Tables\Columns\ImageColumn::make('photo')
@@ -77,18 +81,6 @@ class PhotoResource extends Resource
                     ->limit(3)
                     ->limitedRemainingText()
                     ->size(100),
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->label('Dibuat')
-                //     ->since()
-                //     ->dateTimeTooltip()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('updated_at')
-                //     ->label('Diperbarui')
-                //     ->since()
-                //     ->dateTimeTooltip()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->paginated(false)
             ->filters([

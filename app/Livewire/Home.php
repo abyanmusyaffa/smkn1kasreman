@@ -16,7 +16,6 @@ class Home extends Component
 {
     #[Title('Beranda')]
 
-    
     public function mount()
     {
         $this->dispatch('title', title: 'Beranda');
@@ -54,7 +53,7 @@ class Home extends Component
             'galleries' => Photo::where('type', 'gallery')->value('photo'),
             'partners' => Partner::whereNotNull('logo')->pluck('logo'),
             'achievements' => Achievement::orderBy('created_at', 'desc')->take(4)->get(),
-            'testimonials' => Testimonial::with('alumnis')->orderBy('created_at', 'desc')->take(6)->get(),
+            'testimonials' => Testimonial::with('alumnis')->where('show', true)->orderBy('created_at', 'desc')->take(6)->get(),
             'articles' => Article::orderBy('created_at', 'desc')->take(4)->get(),
         ]);
     }
