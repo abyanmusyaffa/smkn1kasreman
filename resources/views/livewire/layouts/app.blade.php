@@ -16,6 +16,8 @@
             }
         </style>
         <link rel="stylesheet" href="/css/custom.css">
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         @filamentStyles
         @vite('resources/css/app.css')
     </head>
@@ -29,7 +31,10 @@
         </main>
         <livewire:templates.footer />
 
-        <script src="/js/script.js"></script>
+        {{-- <script src="/js/script.js"></script> --}}
+        <script>
+            AOS.init();
+        </script>
         @filamentScripts
         @vite('resources/js/app.js')
     </body>

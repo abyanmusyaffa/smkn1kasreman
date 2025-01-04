@@ -12,7 +12,7 @@
         <!-- pinned -->
 
         <!-- all news -->
-        <div class="flex flex-col gap-4 w-full justify-center">
+        <div data-aos="fade-up" class="flex flex-col gap-4 w-full justify-center">
           <livewire:components.title-left text="Berita" />
 
           <livewire:components.paginate :onNews="true" />
@@ -20,4 +20,25 @@
         <!-- all news -->
     </article>
     <!-- news -->
+
+    @script
+    <script>
+      document.addEventListener("livewire:navigated", function () {
+        // slide achieve
+        const slidesAchieve = document.querySelectorAll("[data-slide-achievement]");
+        let currentSlideAchieve = 0;
+
+        function showNextSlideAchieve() {
+            slidesAchieve[currentSlideAchieve].classList.add("hidden");
+
+            currentSlideAchieve = (currentSlideAchieve + 1) % slidesAchieve.length;
+
+            slidesAchieve[currentSlideAchieve].classList.remove("hidden");
+        }
+
+        setInterval(showNextSlideAchieve, 4000);
+        // slide achieve
+      });
+    </script>
+    @endscript
 </div>

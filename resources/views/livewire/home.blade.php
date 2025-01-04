@@ -31,7 +31,7 @@
       </p>
       <livewire:components.more-button text="Selengkapnya" href="/about" />
       <!-- running partners -->
-      <figure class="flex flex-col gap-2 lg:gap-4 items-center w-full">
+      <figure data-aos="fade" class="flex flex-col gap-2 lg:gap-4 items-center w-full">
         <h3 class="text-xl lg:text-3xl font-medium text-slate-800">Mitra DU/DI</h3>
         <p class="lg:text-xl text-slate-700 lg:w-3/5">
           SMKN {{ $school->name }} bekerja sama dengan berbagai mitra DU/DI untuk mendukung pembelajaran siswa dan membuka peluang karir di dunia kerja.
@@ -49,7 +49,7 @@
     <!-- summary -->
 
     <!-- major -->
-     <aside class="flex rounded-2xl bg-blue-600 w-full p-4 lg:py-6 lg:px-16 flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+     <aside data-aos="fade-left" class="flex rounded-2xl bg-blue-600 w-full p-4 lg:py-6 lg:px-16 flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
       <div class="flex flex-col gap-2 lg:gap-4 w-full lg:w-1/3 text-center lg:text-start">
         <h2 class="text-2xl lg:text-5xl font-medium text-slate-50">Konsentrasi <br> Keahlian</h2>
         <p class="lg:text-xl text-slate-100">Beberapa konsentrasi keahlian di SMKN {{ $school->name }} dirancang untuk mengantarkan siswa meraih kesuksesan di masa depan.</p>
@@ -64,7 +64,7 @@
 
     <!-- achievement -->
     @if($achievements->count() > 0)
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-right" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
       <livewire:components.title-right text="Prestasi" span="Kita" />
       <div class="grid lg:grid-cols-4 gap-4">
         @foreach($achievements as $achievement)
@@ -79,7 +79,7 @@
     <!-- achievement -->
 
     <!-- gallery -->
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-left" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Galeri" :span="$school->alias" />
       <figure class="grid grid-cols-2 lg:grid-cols-3 grid-rows-6 lg:grid-rows-3 w-full gap-2 lg:gap-4">
         <iframe class="w-full aspect-video lg:h-full lg:aspect-auto rounded-2xl col-span-2 row-span-2" src="https://www.youtube.com/embed/{{ $video_id }}?si=Hifffx7NdQLbAi2f&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -92,7 +92,7 @@
 
     <!-- news -->
     @if($articles->count() > 0)
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-right" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
       <livewire:components.title-right :text="$school->alias" span="Terkini" />
         <div class="drag-to-scroll flex w-full gap-4 overflow-x-scroll lg:overflow-x-visible cursor-grab active:cursor-grabbing snap-x snap-mandatory p-2 lg:p-0">
           @foreach($articles as $article)
@@ -105,7 +105,7 @@
 
     <!-- alumni story -->
     @if($testimonials->count() > 0)
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-left" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Cerita" span="Alumni" />
       <div class="drag-to-scroll flex gap-4 w-full cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll pt-10 lg:pt-14 p-2">
         @foreach($testimonials as $testimonial)
@@ -118,4 +118,75 @@
     </aside>
     @endif
     <!-- alumni story -->
+
+    @script
+    <script>
+      document.addEventListener("livewire:navigated", function () {
+        // slide hero
+        const slidesHero = document.querySelectorAll("[data-slide-hero]");
+        let currentSlideHero = 0;
+
+        function showNextSlideHero() {
+            slidesHero[currentSlideHero].classList.add("opacity-0");
+
+            currentSlideHero = (currentSlideHero + 1) % slidesHero.length;
+
+            slidesHero[currentSlideHero].classList.remove("opacity-0");
+        }
+
+        setInterval(showNextSlideHero, 4000);
+        // slide hero
+
+        // drag to scroll alumni
+        let mouseDown = false;
+        let startX, scrollLeft;
+
+        const sliders = document.querySelectorAll(".drag-to-scroll");
+
+        const startDragging = (e, slider) => {
+            mouseDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        };
+
+        const stopDragging = () => {
+            mouseDown = false;
+        };
+
+        const move = (e, slider) => {
+            e.preventDefault();
+            if (!mouseDown) {
+                return;
+            }
+            const x = e.pageX - slider.offsetLeft;
+            const scroll = x - startX;
+            slider.scrollLeft = scrollLeft - scroll;
+        };
+
+        sliders.forEach((slider) => {
+            if (slider) {
+                slider.addEventListener("mousemove", (e) => move(e, slider), false);
+                slider.addEventListener(
+                    "mousedown",
+                    (e) => startDragging(e, slider),
+                    false
+                );
+                slider.addEventListener("mouseup", stopDragging, false);
+                slider.addEventListener("mouseleave", stopDragging, false);
+            }
+        });
+        // drag to scroll alumni
+
+        // logo animation
+        const logoContainer = document.querySelector('.logo-container');
+        const originalLogo = document.querySelector('.logo-animation');
+
+        for (let i = 0; i < 2; i++) {
+            const clonedLogo = originalLogo.cloneNode(true);
+            logoContainer.appendChild(clonedLogo);
+        }
+        // logo animation
+      });
+    </script>
+    @endscript
 </div>

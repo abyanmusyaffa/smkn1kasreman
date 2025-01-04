@@ -12,7 +12,7 @@
      
     <!-- vice-->
     @if($viceMasters->count() > 0)
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-up" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-right text="Wakil Kepala" span="Sekolah" />
       <div class="flex w-full lg:justify-between pb-1 gap-2 drag-to-scroll cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll">
         @foreach($viceMasters as $viceMaster )
@@ -25,7 +25,7 @@
      
     <!-- head of major-->
     @if($headsOfMajor->count() > 0)
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-up" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Kakomli" span="" />
       <div class="flex w-full lg:justify-between pb-1 gap-2 drag-to-scroll cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll">
         @foreach($headsOfMajor as $headOfMajor )
@@ -38,7 +38,7 @@
 
     <!-- teacher-->
     @if($teachers->count() > 0)
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-up" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-right text="Guru" span="" />
       <div class="flex w-full lg:justify-between pb-1 gap-2 drag-to-scroll cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll">
         @foreach($teachers as $teacher )
@@ -51,7 +51,7 @@
 
     <!-- staff-->
     @if($staffMembers->count() > 0)
-    <aside class="flex w-full flex-col gap-4 lg:gap-6 items-center">
+    <aside data-aos="fade-up" class="flex w-full flex-col gap-4 lg:gap-6 items-center">
         <livewire:components.title-left text="Tenaga" span="Kependidikan" />
       <div class="flex w-full lg:justify-between pb-1 gap-2 drag-to-scroll cursor-grab active:cursor-grabbing snap-x snap-mandatory overflow-x-scroll">
         @foreach($staffMembers as $staff )
@@ -62,4 +62,49 @@
     @endif
     <!-- staff-->
 
+    @script
+    <script>
+      document.addEventListener("livewire:navigated", function () {
+        // drag to scroll alumni
+        let mouseDown = false;
+        let startX, scrollLeft;
+
+        const sliders = document.querySelectorAll(".drag-to-scroll");
+
+        const startDragging = (e, slider) => {
+            mouseDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        };
+
+        const stopDragging = () => {
+            mouseDown = false;
+        };
+
+        const move = (e, slider) => {
+            e.preventDefault();
+            if (!mouseDown) {
+                return;
+            }
+            const x = e.pageX - slider.offsetLeft;
+            const scroll = x - startX;
+            slider.scrollLeft = scrollLeft - scroll;
+        };
+
+        sliders.forEach((slider) => {
+            if (slider) {
+                slider.addEventListener("mousemove", (e) => move(e, slider), false);
+                slider.addEventListener(
+                    "mousedown",
+                    (e) => startDragging(e, slider),
+                    false
+                );
+                slider.addEventListener("mouseup", stopDragging, false);
+                slider.addEventListener("mouseleave", stopDragging, false);
+            }
+        });
+        // drag to scroll alumni
+      });
+    </script>
+    @endscript
 </div>

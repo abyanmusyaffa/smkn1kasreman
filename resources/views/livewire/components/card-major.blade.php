@@ -1,4 +1,4 @@
-<article id="{{ strtolower($alias) }}" class="flex w-full flex-col {{ $index % 2 !== 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}} items-center lg:justify-between rounded-2xl bg-white p-4 gap-4 lg:px-24 lg:py-6">
+<article data-aos="fade-up" id="{{ strtolower($alias) }}" class="flex w-full flex-col {{ $index % 2 !== 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}} items-center lg:justify-between rounded-2xl bg-white p-4 gap-4 lg:px-24 lg:py-6">
     <figure class="grid w-full lg:w-1/3 grid-cols-2 grid-rows-2 gap-2">
         <div class="grid place-items-center w-full aspect-square rounded-2xl bg-blue-600">
             <img src="/storage/{{ $logo }}" class="w-28 lg:w-36" alt="">

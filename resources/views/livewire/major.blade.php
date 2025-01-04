@@ -5,7 +5,7 @@
       <div class="flex flex-col gap-4 lg:gap-6 w-full">
 
         @foreach($majors as $index => $major)
-        <livewire:components.card-major wire:key="{{ $major->id }}" :logo="$major->logo" :photo="$major->photo" :alias="$major->alias" :name="$major->name" :description="$major->description" :studyGroup="$major->study_group" :studyPeriod="$major->study_period" :totalStudents="$major->total_students" :flexRow="($index % 2 == 0) ? 'lg:flex-row-reverse' : 'lg:flex-row' " :index="$index" />
+        <livewire:components.card-major wire:key="{{ $major->id }}" :logo="$major->logo" :photo="$major->photo" :alias="$major->alias" :name="$major->name" :description="$major->description" :studyGroup="$major->study_group" :studyPeriod="$major->study_period" :totalStudents="$major->total_students" :index="$index" />
         @endforeach
       </div>
     </article>

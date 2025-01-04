@@ -14,7 +14,34 @@ class AlumniImporter extends Importer
     public static function getColumns(): array
     {
         return [
-            //
+            ImportColumn::make('name')
+                ->example('Alexander Santoso')
+                ->requiredMapping()
+                ->rules(['required', 'max:28']),
+            ImportColumn::make('username')
+                ->example('AB212')
+                ->requiredMapping()
+                ->rules(['required', 'max:255']),
+            ImportColumn::make('password')
+                ->example('alumni')
+                ->requiredMapping()
+                ->rules(['required', 'max:255']),
+            ImportColumn::make('photo')
+                ->rules(['max:255']),
+            ImportColumn::make('class')
+                ->example(2022)
+                ->numeric()
+                ->requiredMapping()
+                ->rules(['required', 'integer']),
+            ImportColumn::make('major_id')
+                ->example(1)
+                ->requiredMapping()
+                ->numeric()
+                ->rules(['required', 'integer']),
+            ImportColumn::make('position')
+                ->rules(['max:255']),
+            ImportColumn::make('company')
+                ->rules(['max:255']),
         ];
     }
 

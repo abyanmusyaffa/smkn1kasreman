@@ -8,7 +8,7 @@
       <!-- pinned -->
 
       <!-- all announ -->
-      <div class="flex flex-col gap-4 w-full justify-center">
+      <div data-aos="fade-up" class="flex flex-col gap-4 w-full justify-center">
         <livewire:components.title-left text="Pengumuman" />
 
         <livewire:components.paginate :onAnnouncements="true" />

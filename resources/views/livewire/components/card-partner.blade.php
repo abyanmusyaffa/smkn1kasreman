@@ -1,4 +1,4 @@
-<article class="flex w-full p-2 gap-4 lg:p-6 lg:gap-6 rounded-2xl bg-white min-h-28 lg:min-h-52">
+<article data-aos="fade-up" class="flex w-full p-2 gap-4 lg:p-6 lg:gap-6 rounded-2xl bg-white min-h-28 lg:min-h-52">
     <img src="/storage/{{ $logo }}" class="w-20 lg:w-40 object-contain" alt="">
     <div class="flex flex-col">
         <h4 class="text-slate-800 text-xs lg:text-2xl font-medium">{{ $name }}</h4>

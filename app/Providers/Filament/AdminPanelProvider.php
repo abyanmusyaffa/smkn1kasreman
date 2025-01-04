@@ -48,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
                 'Preferensi',
                 'Manajemen User',
             ])
+            // ->databaseNotifications()
             ->colors([
                 'primary' => Color::Amber,
             ])

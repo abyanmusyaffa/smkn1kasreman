@@ -119,10 +119,10 @@ class AlumniResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(AlumniImporter::class)
-            ])
+            // ->headerActions([
+            //     ImportAction::make()
+            //         ->importer(AlumniImporter::class)
+            // ])
             ->columns([
                 Tables\Columns\TextColumn::make('username')
                     ->sortable()
