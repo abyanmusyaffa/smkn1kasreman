@@ -37,7 +37,6 @@ class Jobfair extends Model
         });
 
 
-        // Hapus file yang sudah tidak digunakan saat update
         static::updating(function ($jobfair) {
             $originalContent = $jobfair->getOriginal('content');
             $newContent = $jobfair->content;
@@ -52,7 +51,6 @@ class Jobfair extends Model
             }
         });
 
-        // Hapus semua file saat record dihapus
         static::deleting(function ($jobfair) {
             preg_match_all('/attachments-jobfair\/[^"\' ]+/', $jobfair->content, $files);
 

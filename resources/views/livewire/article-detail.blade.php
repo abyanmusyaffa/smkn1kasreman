@@ -37,7 +37,7 @@
                             {{ \Carbon\Carbon::parse($articleDetail->deadline)->diffForHumans() }}
                         @endif
                     @else
-                        {{ \Carbon\Carbon::parse($articleDetail->created_at)->translatedFormat('j F Y') }}
+                        {{ \Carbon\Carbon::parse($articleDetail->created_at)->translatedFormat('j F Y H:i') }}
                     @endif
                     {{-- {{ $articleDetail->deadline ? \Carbon\Carbon::parse($articleDetail->deadline)->diffForHumans() : \Carbon\Carbon::parse($articleDetail->created_at)->translatedFormat('j F Y') }} --}}
                 </p>

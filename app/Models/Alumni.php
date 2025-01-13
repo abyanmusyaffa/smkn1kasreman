@@ -39,7 +39,6 @@ class Alumni extends Model
             }
         });
     
-        // Menghapus file lama saat record diperbarui
         static::updating(function ($alumni) {
             if ($alumni->isDirty('photo')) {
                 $oldPhoto = $alumni->getOriginal('photo');

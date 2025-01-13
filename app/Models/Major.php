@@ -57,7 +57,6 @@ class Major extends Model
         });
 
 
-        // Hapus file yang sudah tidak digunakan saat update
         static::updating(function ($major) {
             $originalDescription = $major->getOriginal('description');
             $newDescription = $major->description;
@@ -72,7 +71,6 @@ class Major extends Model
             }
         });
 
-        // Hapus semua file saat record dihapus
         static::deleting(function ($major) {
             preg_match_all('/attachments-major\/[^"\' ]+/', $major->description, $files);
 

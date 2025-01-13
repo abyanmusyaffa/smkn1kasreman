@@ -63,8 +63,10 @@ class TestimonialResource extends Resource
                     Forms\Components\Textarea::make('content')
                         ->label('Isi')
                         ->rows(10)
-                        ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
-                        ->maxLength(400)
+                        ->hint(fn ($state, $component) => strlen($state) . ' Karakter | Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter') 
+                        ->maxlength(400) 
+                        ->helperText('Minimal 200 Karakter')
+                        ->minLength(250)
                         ->required()
                         ->columnSpan([
                             'default' => 2,
@@ -109,7 +111,7 @@ class TestimonialResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('updated_at', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

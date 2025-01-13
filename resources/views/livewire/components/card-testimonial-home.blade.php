@@ -1,5 +1,6 @@
 <article class="flex min-w-[100%] lg:min-w-[33.333333%] lg:max-w-[33.333333%] flex-col gap-2 lg:gap-4 p-2 lg:p-4 pt-12 lg:pt-16 shadow-skanka rounded-2xl relative bg-slate-50 transition-all duration-300">
     <figure style="background-image: url({{ strpos($photo, 'alumnis-tracer') !== false ? 'http://tracer-smkn1kasreman.test/' : '' }}/storage/{{ $photo }});" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure>
+    {{-- <figure style="background-image: url({{ strpos($photo, 'alumnis-tracer') !== false ? 'https://tracer.smkn1kasreman.site/' : '' }}/storage/{{ $photo }});" class="size-20 lg:size-28 rounded-full outline outline-4 outline-slate-50 bg-cover bg-no-repeat bg-center absolute -top-10 lg:-top-14 right-1/2 translate-x-1/2"></figure> --}}
     <figcaption class="flex flex-col w-full text-center">
       <div class="flex w-full gap-1 items-center justify-center">
         <p class="text-sm lg:text-base text-slate-700">{{ $name }}</p>

@@ -51,7 +51,7 @@ class Home extends Component
             'video_id' => $this->getYoutubeVideoId(School::first()->url_video_profile),
             'heros' => Photo::where('type', 'hero')->value('photo'),
             'galleries' => Photo::where('type', 'gallery')->value('photo'),
-            'partners' => Partner::whereNotNull('logo')->pluck('logo'),
+            'partners' => Partner::where('logo', 'NOT LIKE', '%default%')->pluck('logo'),
             'achievements' => Achievement::orderBy('created_at', 'desc')->take(4)->get(),
             'testimonials' => Testimonial::with('alumnis')->where('show', true)->orderBy('created_at', 'desc')->take(6)->get(),
             'articles' => Article::orderBy('created_at', 'desc')->take(4)->get(),

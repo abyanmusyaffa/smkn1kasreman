@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('alumni_id')->constrained()->cascadeOnDelete();
             $table->text('content');
             $table->integer('rating');
-            $table->boolean('show')->default(true);
+            $table->boolean('show')->default(false);
             $table->timestamps();
         });
     }

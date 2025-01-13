@@ -25,7 +25,6 @@ class Download extends Model
             }
         });
 
-        // Hapus semua file saat record dihapus
         static::deleting(function ($download) {
             preg_match_all('/attachments-download\/[^"\' ]+/', $download->content, $files);
 

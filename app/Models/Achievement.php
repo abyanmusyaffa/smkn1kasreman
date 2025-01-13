@@ -38,8 +38,6 @@ class Achievement extends Model
         });
 
 
-
-        // Hapus file yang sudah tidak digunakan saat update
         static::updating(function ($achievement) {
             $originalContent = $achievement->getOriginal('content');
             $newContent = $achievement->content;
@@ -54,7 +52,6 @@ class Achievement extends Model
             }
         });
 
-        // Hapus semua file saat record dihapus
         static::deleting(function ($achievement) {
             preg_match_all('/attachments-achievement\/[^"\' ]+/', $achievement->content, $files);
 

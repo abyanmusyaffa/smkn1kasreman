@@ -13,14 +13,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable // implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
     // public function canAccessPanel(Panel $panel): bool
     // {
-    //     return str_ends_with($this->email, '@smkn1kasreman.site') && $this->hasVerifiedEmail();
     //     return true;
     // }
     /**

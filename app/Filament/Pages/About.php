@@ -187,7 +187,7 @@ class About extends Page implements HasForms
                         ->url()
                         ->required()
                         ->columnSpan([
-                            'default' => 1,
+                            'default' => 2,
                             'lg' => 12,
                         ]),
                     RichEditor::make('description')

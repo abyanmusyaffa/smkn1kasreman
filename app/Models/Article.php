@@ -37,7 +37,6 @@ class Article extends Model
         });
 
 
-        // Hapus file yang sudah tidak digunakan saat update
         static::updating(function ($article) {
             $originalContent = $article->getOriginal('content');
             $newContent = $article->content;
@@ -52,7 +51,6 @@ class Article extends Model
             }
         });
 
-        // Hapus semua file saat record dihapus
         static::deleting(function ($article) {
             preg_match_all('/attachments-article\/[^"\' ]+/', $article->content, $files);
 

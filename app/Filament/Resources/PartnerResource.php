@@ -48,6 +48,7 @@ class PartnerResource extends Resource
                     Forms\Components\FileUpload::make('logo')
                         ->label('Logo')
                         ->image()
+                        ->default('/default/extracurricular.svg')
                         ->directory('/partners')
                         ->columnSpan([
                             'default' => 2,
