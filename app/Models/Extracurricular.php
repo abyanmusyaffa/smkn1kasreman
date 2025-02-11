@@ -12,7 +12,7 @@ class Extracurricular extends Model
     protected static function booted()
     {
         static::deleting(function ($extracurricular) {
-            if ($extracurricular->logo && $extracurricular->logo !== '/default/extracurricular.svg') {
+            if ($extracurricular->logo && $extracurricular->logo !== 'default/extracurricular.svg') {
                 Storage::disk('public')->delete($extracurricular->logo);
             }
         });
@@ -20,7 +20,7 @@ class Extracurricular extends Model
         static::updating(function ($extracurricular) {
             if ($extracurricular->isDirty('logo')) {
                 $oldLogo = $extracurricular->getOriginal('logo');
-                if ($oldLogo && $extracurricular->logo !== '/default/extracurricular.svg') {
+                if ($oldLogo && $extracurricular->logo !== 'default/extracurricular.svg') {
                     Storage::disk('public')->delete($oldLogo);
                 }
             }

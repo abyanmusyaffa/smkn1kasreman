@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('photo');
             $table->longText('content');
             $table->json('tags');
-            $table->boolean('is_pinned')->default(false);
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->boolean('is_pinned')
+                    ->default(false);
+            $table->foreignId('user_id')
+                    ->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('photo')->nullable()->default('/default/staff-male.svg');
+            $table->string('photo')->nullable()
+                    ->default('/default/staff-male.svg');
             $table->string('role');
-            $table->enum('category', ['head-master', 'vice-master', 'head-of-major', 'teacher', 'staff']);
+            $table->enum('category', [
+                    'head-master', 
+                    'vice-master', 
+                    'head-of-major', 
+                    'teacher', 'staff'
+                    ]);
             $table->timestamps();
         });
     }

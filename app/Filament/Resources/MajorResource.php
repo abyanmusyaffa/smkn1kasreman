@@ -172,6 +172,7 @@ class MajorResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->paginated(false)
             ->defaultSort('name')
             ->filters([
                 //

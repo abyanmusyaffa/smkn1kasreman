@@ -38,6 +38,7 @@ class StaffResource extends Resource
                     Forms\Components\TextInput::make('name')
                         ->label('Nama')
                         ->required()
+                        ->live()
                         ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
                         ->maxLength(22)
                         ->columnSpan([

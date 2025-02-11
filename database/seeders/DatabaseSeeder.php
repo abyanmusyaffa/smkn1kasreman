@@ -423,6 +423,20 @@ class DatabaseSeeder extends Seeder
 
         DB::table('articles')->insert([
             [
+                'title' => 'SMKN 1 Kasreman melaksanakan Karnaval 17 Agustus 2024 tingkat Kabupaten Ngawi',
+                'slug' => 'smkn-1-kasreman-melaksanakan-karnaval-17-agustus-2024-tingkat-kabupaten-ngawi',
+                'photo' => 'articles/01JKM7QCJRQDGDMJ5BBGGWXDWH.jpg',
+                'content' => '<p>SMKN 1 Kasreman menggelar peringatan <strong>Hari Guru Nasional 2024</strong> dengan penuh semangat dan kebersamaan. Acara yang berlangsung pada Senin, 25 November 2024, di halaman sekolah ini mengangkat tema <em>“Guru: Inspirasi untuk Generasi Emas Indonesia”</em>.</p><h3><strong>Rangkaian Acara yang Meriah dan Bermakna</strong></h3><p>Acara dimulai dengan upacara bendera yang dipimpin oleh Kepala Sekolah, Bapak Sutrisno. Dalam pidatonya, ia menyampaikan apresiasi mendalam kepada para guru atas dedikasi mereka.</p><blockquote><em>“Guru bukan hanya mengajarkan ilmu, tetapi juga menjadi teladan dalam kehidupan. Mari kita jadikan momen ini sebagai penghargaan atas jasa mereka,”</em> ujarnya.</blockquote><p>Setelah upacara, berbagai kegiatan menarik turut memeriahkan suasana, antara lain:</p><ul><li><strong>Pentas seni siswa</strong>: Menampilkan drama, tarian tradisional, dan musik akustik bertema penghormatan kepada guru.</li><li><strong>Lomba untuk guru dan siswa</strong>: Seperti tarik tambang, estafet, dan tebak kata, yang menciptakan kebersamaan antara siswa dan guru.</li><li><strong>Pemberian penghargaan</strong>: Guru-guru yang telah mengabdi lebih dari 20 tahun mendapatkan penghargaan khusus.</li></ul><h3><strong>Pesan Inspiratif dari Siswa untuk Guru</strong></h3><p>Salah satu momen yang paling menyentuh adalah saat perwakilan siswa menyampaikan pesan dan kesan mereka. Seorang siswa, Rani dari kelas XII TKJ, mengatakan,</p><blockquote><em>“Guru adalah orang tua kedua kami. Terima kasih atas semua ilmu dan bimbingan yang telah diberikan kepada kami.”</em></blockquote><h3><strong>Harapan untuk Masa Depan Pendidikan</strong></h3><p>Peringatan Hari Guru ini juga menjadi refleksi bagi seluruh keluarga besar SMKN 1 Kasreman untuk terus berkomitmen dalam mencetak generasi yang cerdas dan berkarakter. Guru Matematika, Ibu Winda, menyampaikan harapannya,</p><blockquote><em>“Semoga para guru selalu diberi kesehatan dan kekuatan untuk mendidik generasi masa depan. Mari terus berinovasi agar pendidikan semakin maju.”</em></blockquote><h3><strong>Penutup dengan Doa Bersama</strong></h3><p>Acara ditutup dengan doa bersama yang dipimpin oleh guru agama, sebagai wujud syukur atas peran guru dalam membimbing siswa menuju kesuksesan.</p><h3><strong>Makna Hari Guru untuk SMKN 1 Kasreman</strong></h3><p>Peringatan Hari Guru Nasional di SMKN 1 Kasreman bukan sekadar seremoni, tetapi juga pengingat akan pentingnya peran guru dalam membentuk masa depan bangsa. Dengan semangat Hari Guru, sekolah ini terus berkomitmen menciptakan lingkungan belajar yang inspiratif dan bermakna bagi generasi penerus.</p>',
+                'category' => 'news',
+                'tags' => json_encode([
+                    "Karnaval"
+                ]),
+                'is_pinned' => false,
+                'user_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
                 'title' => 'SMKN 1 Kasreman Sukses Gelar Pameran Produk Kreatif Siswa',
                 'slug' => 'smkn-1-kasreman-sukses-gelar-pameran-produk-kreatif-siswa',
                 'photo' => 'articles/01JFNZXW0TDA9VYWQZA469G51S.jpg',
@@ -611,7 +625,7 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < $count; $i++) {
                 DB::table('staff')->insert([
                     'name' => fake()->name(),
-                    'photo' => fake()->randomElement(['/default/staff-male.svg', '/default/staff-female.svg']),
+                    'photo' => fake()->randomElement(['default/staff-male.svg', 'default/staff-female.svg']),
                     'role' => fake()->jobTitle(),
                     'category' => $category,
                     'created_at' => now(),

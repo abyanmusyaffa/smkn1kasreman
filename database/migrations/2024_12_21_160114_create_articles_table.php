@@ -17,10 +17,16 @@ return new class extends Migration
             $table->string('slug');
             $table->string('photo');
             $table->longtext('content');
-            $table->enum('category', ['news', 'announcement', 'enrollment']);
+            $table->enum('category', [
+                    'news', 
+                    'announcement', 
+                    'enrollment'
+                    ]);
             $table->json('tags');
-            $table->boolean('is_pinned')->default(false);
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->boolean('is_pinned')
+                    ->default(false);
+            $table->foreignId('user_id')
+                    ->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

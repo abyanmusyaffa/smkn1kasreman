@@ -54,7 +54,7 @@ class Home extends Component
             'partners' => Partner::where('logo', 'NOT LIKE', '%default%')->pluck('logo'),
             'achievements' => Achievement::orderBy('created_at', 'desc')->take(4)->get(),
             'testimonials' => Testimonial::with('alumnis')->where('show', true)->orderBy('created_at', 'desc')->take(6)->get(),
-            'articles' => Article::orderBy('created_at', 'desc')->take(4)->get(),
+            'articles' => Article::where('category', 'news')->orderBy('created_at', 'desc')->take(4)->get(),
         ]);
     }
 

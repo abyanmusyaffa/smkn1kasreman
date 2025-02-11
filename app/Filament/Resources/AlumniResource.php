@@ -65,6 +65,7 @@ class AlumniResource extends Resource
                     Forms\Components\TextInput::make('name')
                         ->label('Name')
                         ->required()
+                        ->live()
                         ->hint(fn ($state, $component) => 'Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter')
                         ->maxLength(28)
                         ->columnSpan([

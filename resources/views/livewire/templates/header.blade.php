@@ -92,7 +92,7 @@
           <!-- Dropdown -->
           <div class="flex-col px-4 py-2 gap-2 bg-slate-50 rounded-lg min-w-32 absolute top-[28px] hidden group-hover/dropdown:flex transition-all">
             @foreach($webLinks as $weblink)
-              <a href="{{ $weblink->url }}" class="flex flex-col gap-1 group">
+              <a href="{{ $weblink->url }}" target="_blank" class="flex flex-col gap-1 group">
                 <p class="text-sm text-slate-500 group-hover:text-blue-500">{{ $weblink->title }}</p>
                 <div class="h-[1px] w-full bg-slate-200"></div>
               </a>
@@ -162,7 +162,7 @@
           <!-- dropdown -->
           <div class="flex-col w-full gap-2 rounded-lg items-center hidden peer-checked:flex transition-all py-2" id="dropdownMenu">
             @foreach($webLinks as $weblink)
-              <a href="{{ $weblink->url }}" class="text-slate-50 whitespace-nowrap">{{ $weblink->title }}</a>
+              <a href="{{ $weblink->url }}" target="_blank" class="text-slate-50 whitespace-nowrap">{{ $weblink->title }}</a>
             @endforeach
           </div>
           <!-- dropdown -->

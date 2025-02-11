@@ -32,7 +32,7 @@ class Paginate extends Component
             'news' => $this->onNews ? Article::where('category', 'news')->where('is_pinned', false)->orderBy('updated_at', 'desc')->paginate(12) : [] ,
             'announcements' => $this->onAnnouncements ? Article::where('category', 'announcement')->where('is_pinned', false)->orderBy('updated_at', 'desc')->paginate(12) : [] ,
             'enrollments' => $this->onEnrollments ? Article::where('category', 'enrollment')->where('is_pinned', false)->orderBy('updated_at', 'desc')->paginate(12) : [] ,
-            'jobfairs' => $this->onJobfairs ? Jobfair::where('show', true)->orderBy('updated_at', 'desc')->paginate(12) : [] ,
+            'jobfairs' => $this->onJobfairs ? Jobfair::where('show', true)->orderBy('deadline')->paginate(12) : [] ,
         ]);
     }
 }

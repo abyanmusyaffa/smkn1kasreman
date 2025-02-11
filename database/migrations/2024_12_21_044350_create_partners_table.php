@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('logo')->nullable()->default('/default/extracurricular.svg');
+            $table->string('logo')->nullable()
+                    ->default('/default/extracurricular.svg');
             $table->string('address')->nullable();
             $table->json('industry');
             $table->timestamps();

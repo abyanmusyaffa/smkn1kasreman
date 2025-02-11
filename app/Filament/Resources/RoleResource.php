@@ -20,7 +20,6 @@ use Illuminate\Support\Str;
 class RoleResource extends Resource implements HasShieldPermissions
 {
     use HasShieldFormComponents;
-
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function getPermissionPrefixes(): array
@@ -157,12 +156,14 @@ class RoleResource extends Resource implements HasShieldPermissions
 
     public static function getModelLabel(): string
     {
-        return __('filament-shield::filament-shield.resource.label.role');
+        return 'Peran Admin';
+        // return __('filament-shield::filament-shield.resource.label.role');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('filament-shield::filament-shield.resource.label.roles');
+        return 'Peran Admin';
+        // return __('filament-shield::filament-shield.resource.label.roles');
     }
 
     public static function shouldRegisterNavigation(): bool
@@ -172,14 +173,16 @@ class RoleResource extends Resource implements HasShieldPermissions
 
     public static function getNavigationGroup(): ?string
     {
-        return Utils::isResourceNavigationGroupEnabled()
-            ? __('filament-shield::filament-shield.nav.group')
-            : '';
+        return 'Manajemen Admin';
+        // return Utils::isResourceNavigationGroupEnabled()
+        //     ? __('filament-shield::filament-shield.nav.group')
+        //     : '';
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('filament-shield::filament-shield.nav.role.label');
+        return 'Peran Admin';
+        // return __('filament-shield::filament-shield.nav.role.label');
     }
 
     public static function getNavigationIcon(): string

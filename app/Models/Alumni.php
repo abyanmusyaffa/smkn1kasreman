@@ -34,7 +34,7 @@ class Alumni extends Model
     protected static function booted()
     {
         static::deleting(function ($alumni) {
-            if ($alumni->photo && $alumni->photo !== '/default/alumni.svg') {
+            if ($alumni->photo && $alumni->photo !== 'default/alumni.svg') {
                 Storage::disk('public')->delete($alumni->photo);
             }
         });
@@ -42,7 +42,7 @@ class Alumni extends Model
         static::updating(function ($alumni) {
             if ($alumni->isDirty('photo')) {
                 $oldPhoto = $alumni->getOriginal('photo');
-                if ($oldPhoto && $oldPhoto !== '/default/alumni.svg') {
+                if ($oldPhoto && $oldPhoto !== 'default/alumni.svg') {
                     Storage::disk('public')->delete($oldPhoto);
                 }
             }

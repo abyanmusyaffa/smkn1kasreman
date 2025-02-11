@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('username');
             $table->string('password');
-            $table->string('photo')->nullable()->default('default/alumni.svg');
+            $table->string('photo')->nullable()
+                    ->default('default/alumni.svg');
             $table->string('class');
-            $table->foreignId('major_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('major_id')
+                    ->constrained()->cascadeOnDelete();
             $table->string('position')->nullable();
             $table->string('company')->nullable();
             $table->timestamps();

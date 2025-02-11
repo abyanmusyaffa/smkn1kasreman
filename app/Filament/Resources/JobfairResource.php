@@ -97,7 +97,7 @@ class JobfairResource extends Resource
                             'default' => 2,
                             'lg' => 8,
                         ]),
-                    Forms\Components\DatetimePicker::make('deadline')
+                    Forms\Components\DateTimePicker::make('deadline')
                         ->label('Tenggat Waktu')
                         ->required()
                         ->columnSpan([
@@ -150,7 +150,7 @@ class JobfairResource extends Resource
                     ->searchable()
                     ->sortable(),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('deadline')
             ->filters([
                 //
             ])

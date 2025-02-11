@@ -123,7 +123,7 @@ class AchievementResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('rankings')
-                    ->label('Ranking')
+                    ->label('Peringkat')
                     ->badge()
                     ->color('info')
                     ->sortable()

@@ -63,6 +63,7 @@ class TestimonialResource extends Resource
                     Forms\Components\Textarea::make('content')
                         ->label('Isi')
                         ->rows(10)
+                        ->live()
                         ->hint(fn ($state, $component) => strlen($state) . ' Karakter | Sisa ' . $component->getMaxLength() - strlen($state) . ' Karakter') 
                         ->maxlength(400) 
                         ->helperText('Minimal 200 Karakter')

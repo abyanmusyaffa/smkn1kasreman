@@ -16,7 +16,9 @@ use App\Filament\Resources\UserResource\Pages;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected static ?string $navigationGroup = 'Manajemen User';
+    protected static ?string $modelLabel = 'Admin';
+    protected static ?string $pluralModelLabel = 'Admin';
+    protected static ?string $navigationGroup = 'Manajemen Admin';
 
     protected static ?string $navigationIcon = 'fas-users';
 

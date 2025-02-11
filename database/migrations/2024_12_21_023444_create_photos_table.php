@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->json('photo');
-            $table->enum('type', ['hero', 'gallery']);
+            $table->enum('type', [
+                    'hero', 
+                    'gallery'
+                    ]);
             $table->timestamps();
         });
     }
